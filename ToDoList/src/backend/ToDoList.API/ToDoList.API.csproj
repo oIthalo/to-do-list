@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\shared\ToDoList.Communication\ToDoList.Communication.csproj" />
     <ProjectReference Include="..\..\shared\ToDoList.Exception\ToDoList.Exception.csproj" />
     <ProjectReference Include="..\ToDoList.Application\ToDoList.Application.csproj" />

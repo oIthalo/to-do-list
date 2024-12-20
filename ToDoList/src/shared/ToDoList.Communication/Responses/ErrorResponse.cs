@@ -1,11 +1,11 @@
 ﻿namespace ToDoList.Communication.Responses;
 
-public class ErrorsResponse
+public class ErrorResponse
 {
-    public ErrorsResponse(IList<string> errorMessages) =>
+    public ErrorResponse(IList<string> errorMessages) =>
         ErrorMessages = errorMessages;
 
-    public ErrorsResponse(string errorMessage) =>
+    public ErrorResponse(string errorMessage) =>
         ErrorMessages = new List<string> { errorMessage };
 
     public IList<string> ErrorMessages { get; set; } = [];

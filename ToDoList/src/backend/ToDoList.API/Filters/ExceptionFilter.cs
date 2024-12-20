@@ -23,7 +23,14 @@ public class ExceptionFilter : IExceptionFilter
             var exception = context.Exception as ErrorOnValidationException;
 
             context.HttpContext.Response.StatusCode = (int)StatusCodes.Status400BadRequest;
-            context.Result = new BadRequestObjectResult(new ErrorsResponse(exception!.ErrorMessages));
+            context.Result = new BadRequestObjectResult(new ErrorResponse(exception!.ErrorMessages));
+
+        } else if (context.Exception is ErrorOnInvalidLogin errorOnInvalidLogin)
+        {
+            var exception = context.Exception as ErrorOnInvalidLogin;
+
+            context.HttpContext.Response.StatusCode = (int)StatusCodes.Status401Unauthorized;
+            context.Result = new UnauthorizedObjectResult(new ErrorResponse(exception!.Message));
         }
     }
 

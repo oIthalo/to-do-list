@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ToDoList.Application.Services.Mapper;
+using ToDoList.Application.UseCases.Login.DoLogin;
 using ToDoList.Application.UseCases.User.Register;
 
 namespace ToDoList.Application;
@@ -24,5 +25,6 @@ public static class ApplicationDependencyInjection
     private static void AddUseCases(IServiceCollection services)
     {
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+        services.AddScoped<ILoginUseCase, LoginUseCase>();
     }
 }

@@ -5,35 +5,29 @@ using ToDoList.Domain.Repositories;
 using ToDoList.Domain.Security.Tokens;
 using ToDoList.Exception.ExceptionsBase;
 
-namespace ToDoList.Application.UseCases.User.Register;
+namespace ToDoList.Application.UseCases.Login.DoLogin;
 
-public class RegisterUserUseCase : IRegisterUserUseCase
+public class LoginUseCase : ILoginUseCase
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IAccessTokenGenerator _accessTokenGenerator;
 
-    public RegisterUserUseCase(
+    public LoginUseCase(
         IUserRepository userRepository,
         IMapper mapper,
-        IUnitOfWork unitOfWork,
         IAccessTokenGenerator accessTokenGenerator)
     {
         _userRepository = userRepository;
         _mapper = mapper;
-        _unitOfWork = unitOfWork;
         _accessTokenGenerator = accessTokenGenerator;
     }
 
-    public async Task<RegisterUserResponse> Execute(RegisterUserRequest request)
+    public async Task<RegisterUserResponse> Execute(DoLoginRequest request)
     {
         Validate(request);
 
-        var user = _mapper.Map<Domain.Entities.User>(request);
-        
-        await _userRepository.Add(user);
-        await _unitOfWork.Commit();
+        var user = await _userRepository.GetByEmailAndPassword(request.Email, request.Password) ?? throw new ErrorOnInvalidLogin();
 
         var token = _accessTokenGenerator.Generate(user.Identifier);
 
@@ -47,9 +41,9 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         };
     }
 
-    private static void Validate(RegisterUserRequest request)
+    private void Validate(DoLoginRequest request)
     {
-        var result = new RegisterUserValidator().Validate(request);
+        var result = new LoginValidator().Validate(request);
 
         if (!result.IsValid)
             throw new ErrorOnValidationException(result.Errors.Select(x => x.ErrorMessage).ToList());

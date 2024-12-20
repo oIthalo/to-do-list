@@ -14,5 +14,6 @@ public class AutoMapping : Profile
     private void RequestToDomain()
     {
         CreateMap<RegisterUserRequest, User>();
+        CreateMap<DoLoginRequest, User>();
     }
 }

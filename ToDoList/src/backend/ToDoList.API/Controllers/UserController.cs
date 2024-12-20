@@ -10,7 +10,7 @@ public class UserController : ToDoListControllerBase
     [HttpPost]
     [Route("register")]
     [ProducesResponseType(typeof(RegisterUserResponse), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ErrorsResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register(
         [FromServices] IRegisterUserUseCase useCase,
         [FromBody] RegisterUserRequest request)

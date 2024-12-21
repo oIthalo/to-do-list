@@ -2,6 +2,7 @@
 using ToDoList.Communication.Requests;
 using ToDoList.Communication.Responses;
 using ToDoList.Domain.Repositories;
+using ToDoList.Domain.Security.Criptography;
 using ToDoList.Domain.Security.Tokens;
 using ToDoList.Exception.ExceptionsBase;
 
@@ -13,17 +14,20 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IAccessTokenGenerator _accessTokenGenerator;
+    private readonly IPasswordEncripter _passwordEncripter;
 
     public RegisterUserUseCase(
         IUserRepository userRepository,
         IMapper mapper,
         IUnitOfWork unitOfWork,
-        IAccessTokenGenerator accessTokenGenerator)
+        IAccessTokenGenerator accessTokenGenerator,
+        IPasswordEncripter passwordEncripter)
     {
         _userRepository = userRepository;
         _mapper = mapper;
         _unitOfWork = unitOfWork;
         _accessTokenGenerator = accessTokenGenerator;
+        _passwordEncripter = passwordEncripter;
     }
 
     public async Task<RegisterUserResponse> Execute(RegisterUserRequest request)
@@ -31,7 +35,8 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         Validate(request);
 
         var user = _mapper.Map<Domain.Entities.User>(request);
-        
+        user.Password = _passwordEncripter.Encrypt(request.Password);
+
         await _userRepository.Add(user);
         await _unitOfWork.Commit();
 

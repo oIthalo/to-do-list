@@ -2,9 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ToDoList.Domain.Repositories;
+using ToDoList.Domain.Security.Criptography;
 using ToDoList.Domain.Security.Tokens;
 using ToDoList.Infrastructure.DataAccess;
 using ToDoList.Infrastructure.DataAccess.Repositories;
+using ToDoList.Infrastructure.Security.Criptography;
 using ToDoList.Infrastructure.Security.Tokens.Access.Generator;
 
 namespace ToDoList.Infrastructure;
@@ -41,4 +43,6 @@ public static class InfrastructureDependencyInjection
 
         services.AddScoped<IAccessTokenGenerator>(opts => new GenerateAccessToken(expiration, signingKey!));
     }
+
+    private static void AddEncripter(IServiceCollection services) => services.AddScoped<IPasswordEncripter, BCryptNet>();
 }

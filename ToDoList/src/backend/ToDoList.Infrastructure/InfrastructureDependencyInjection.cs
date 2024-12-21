@@ -18,6 +18,7 @@ public static class InfrastructureDependencyInjection
         AddDbContext(services, configuration);
         AddRepositories(services);
         AddTokens(services, configuration);
+        AddEncripter(services);
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

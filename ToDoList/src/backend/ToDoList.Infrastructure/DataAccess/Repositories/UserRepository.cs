@@ -13,5 +13,5 @@ public class UserRepository : IUserRepository
 
     public async Task Add(User user) => await _dbContext.Users.AddAsync(user);
 
-    public async Task<User?> GetByEmailAndPassword(string email, string password) => await _dbContext.Users.FirstOrDefaultAsync(x => x.Active && x.Email.Equals(email) && x.Password.Equals(password));
+    public async Task<User?> GetByEmailAndPassword(string email, string password) => await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Active && x.Email.Equals(email) && x.Password.Equals(password));
 }

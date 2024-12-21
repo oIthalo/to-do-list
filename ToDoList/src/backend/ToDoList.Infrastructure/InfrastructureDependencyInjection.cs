@@ -6,6 +6,7 @@ using ToDoList.Domain.Security.Criptography;
 using ToDoList.Domain.Security.Tokens;
 using ToDoList.Infrastructure.DataAccess;
 using ToDoList.Infrastructure.DataAccess.Repositories;
+using ToDoList.Infrastructure.Extensions;
 using ToDoList.Infrastructure.Security.Criptography;
 using ToDoList.Infrastructure.Security.Tokens.Access.Generator;
 
@@ -23,7 +24,7 @@ public static class InfrastructureDependencyInjection
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("Connection");
+        var connectionString = configuration.ConnectionStringBuilder();
 
         services.AddDbContext<ToDoListDbContext>(opts =>
         {

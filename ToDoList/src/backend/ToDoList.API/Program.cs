@@ -1,6 +1,8 @@
 using ToDoList.API.Filters;
 using ToDoList.Application;
 using ToDoList.Infrastructure;
+using ToDoList.Infrastructure.Extensions;
+using ToDoList.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,3 +36,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+void MigrateDatabase()
+{
+    var connectionString = builder.Configuration.ConnectionStringBuilder();
+    DataBaseMigration.Migrate(connectionString);
+}

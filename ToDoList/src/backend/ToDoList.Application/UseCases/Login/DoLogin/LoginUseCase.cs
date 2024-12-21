@@ -31,8 +31,11 @@ public class LoginUseCase : ILoginUseCase
     {
         Validate(request);
 
-        var passwordEncripted = _passwordEncripter.Encrypt(request.Password);
-        var user = await _userRepository.GetByEmailAndPassword(request.Email, passwordEncripted) ?? throw new ErrorOnInvalidLogin();
+        var user = await _userRepository.GetByEmail(request.Email);
+
+        // user is null or password is false
+        if (user is null || !_passwordEncripter.IsValid(request.Password, user.Password))
+            throw new ErrorOnInvalidLogin();
 
         var token = _accessTokenGenerator.Generate(user.Identifier);
 

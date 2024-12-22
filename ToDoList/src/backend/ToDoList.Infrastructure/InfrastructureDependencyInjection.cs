@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentMigrator.Runner;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 using ToDoList.Domain.Repositories;
 using ToDoList.Domain.Security.Criptography;
 using ToDoList.Domain.Security.Tokens;
@@ -20,6 +22,7 @@ public static class InfrastructureDependencyInjection
         AddRepositories(services);
         AddTokens(services, configuration);
         AddEncripter(services);
+        AddFluentMigrator(services, configuration);
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
@@ -47,4 +50,16 @@ public static class InfrastructureDependencyInjection
     }
 
     private static void AddEncripter(IServiceCollection services) => services.AddScoped<IPasswordEncripter, BCryptNet>();
+
+    private static void AddFluentMigrator(IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration.ConnectionStringBuilder();
+
+        services.AddFluentMigratorCore().ConfigureRunner(opts =>
+        {
+            opts.AddSqlServer()
+            .WithGlobalConnectionString(connectionString)
+            .ScanIn(Assembly.Load("ToDoList.Infrastructure")).For.All();
+        });
+    }
 }

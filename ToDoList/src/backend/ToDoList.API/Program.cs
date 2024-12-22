@@ -30,15 +30,17 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
+
+MigrateDatabase();
 
 app.Run();
 
 void MigrateDatabase()
 {
     var connectionString = builder.Configuration.ConnectionStringBuilder();
-    DataBaseMigration.Migrate(connectionString);
+    var serviceProvider = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+    DataBaseMigration.Migrate(connectionString, serviceProvider.ServiceProvider);
 }

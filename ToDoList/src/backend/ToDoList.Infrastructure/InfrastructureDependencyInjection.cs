@@ -6,12 +6,14 @@ using System.Reflection;
 using ToDoList.Domain.Repositories;
 using ToDoList.Domain.Security.Criptography;
 using ToDoList.Domain.Security.Tokens;
+using ToDoList.Domain.Services.LoggedUser;
 using ToDoList.Infrastructure.DataAccess;
 using ToDoList.Infrastructure.DataAccess.Repositories;
 using ToDoList.Infrastructure.Extensions;
 using ToDoList.Infrastructure.Security.Criptography;
 using ToDoList.Infrastructure.Security.Tokens.Access.Generator;
 using ToDoList.Infrastructure.Security.Tokens.Access.Validator;
+using ToDoList.Infrastructure.Services.LoggedUser;
 
 namespace ToDoList.Infrastructure;
 
@@ -24,6 +26,7 @@ public static class InfrastructureDependencyInjection
         AddTokens(services, configuration);
         AddEncripter(services);
         AddFluentMigrator(services, configuration);
+        AddLoggedUser(services);
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
@@ -64,4 +67,6 @@ public static class InfrastructureDependencyInjection
             .ScanIn(Assembly.Load("ToDoList.Infrastructure")).For.All();
         });
     }
+
+    private static void AddLoggedUser(IServiceCollection services) => services.AddScoped<ILoggedUser, LoggedUser>();
 }

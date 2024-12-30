@@ -1,5 +1,7 @@
 using ToDoList.API.Filters;
+using ToDoList.API.Token;
 using ToDoList.Application;
+using ToDoList.Domain.Security.Tokens;
 using ToDoList.Infrastructure;
 using ToDoList.Infrastructure.Extensions;
 using ToDoList.Infrastructure.Migrations;
@@ -17,8 +19,11 @@ builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)))
 
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 
 builder.Services.AddRouting(opts => opts.LowercaseUrls = true);
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

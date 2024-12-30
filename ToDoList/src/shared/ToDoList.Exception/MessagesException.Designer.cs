@@ -88,6 +88,15 @@ namespace ToDoList.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The token cannot be null or empty..
+        /// </summary>
+        public static string NO_TOKEN {
+            get {
+                return ResourceManager.GetString("NO_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password cannot be empty..
         /// </summary>
         public static string PASSWORD_EMPTY {
@@ -120,6 +129,15 @@ namespace ToDoList.Exception {
         public static string USER_NAME_EMPTY {
             get {
                 return ResourceManager.GetString("USER_NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission to access this resouce..
+        /// </summary>
+        public static string USER_WITHOUT_PERMISSION {
+            get {
+                return ResourceManager.GetString("USER_WITHOUT_PERMISSION", resourceCulture);
             }
         }
     }

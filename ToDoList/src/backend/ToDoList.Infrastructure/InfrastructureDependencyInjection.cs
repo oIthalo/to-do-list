@@ -11,6 +11,7 @@ using ToDoList.Infrastructure.DataAccess.Repositories;
 using ToDoList.Infrastructure.Extensions;
 using ToDoList.Infrastructure.Security.Criptography;
 using ToDoList.Infrastructure.Security.Tokens.Access.Generator;
+using ToDoList.Infrastructure.Security.Tokens.Access.Validator;
 
 namespace ToDoList.Infrastructure;
 
@@ -47,6 +48,7 @@ public static class InfrastructureDependencyInjection
         var expiration = configuration.GetValue<uint>("Settings:JWT:ExpirationInMinutes");
 
         services.AddScoped<IAccessTokenGenerator>(opts => new GenerateAccessToken(expiration, signingKey!));
+        services.AddScoped<ITokenValidator>(opts => new TokenValidator(signingKey!));
     }
 
     private static void AddEncripter(IServiceCollection services) => services.AddScoped<IPasswordEncripter, BCryptNet>();

@@ -9,4 +9,5 @@ public class ErrorResponse
         ErrorMessages = new List<string> { errorMessage };
 
     public IList<string> ErrorMessages { get; set; } = [];
+    public bool TokenIsExpired { get; set; } = false;
 }

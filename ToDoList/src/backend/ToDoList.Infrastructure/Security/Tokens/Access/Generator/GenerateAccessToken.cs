@@ -1,12 +1,11 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using ToDoList.Domain.Security.Tokens;
 
 namespace ToDoList.Infrastructure.Security.Tokens.Access.Generator;
 
-public class GenerateAccessToken : IAccessTokenGenerator
+public class GenerateAccessToken : JwtTokenHandler, IAccessTokenGenerator
 {
     private readonly uint _expirationTimeMinutes;
     private readonly string _signingKey;
@@ -31,16 +30,10 @@ public class GenerateAccessToken : IAccessTokenGenerator
         {
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
-            SigningCredentials = new SigningCredentials(SecurityKey(), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = new SigningCredentials(SecurityKey(_signingKey), SecurityAlgorithms.HmacSha256Signature)
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
-    }
-
-    private SymmetricSecurityKey SecurityKey()
-    {
-        var bytes = Encoding.UTF8.GetBytes(_signingKey);
-        return new SymmetricSecurityKey(bytes);
     }
 }

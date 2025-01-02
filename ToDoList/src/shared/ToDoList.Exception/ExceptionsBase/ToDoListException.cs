@@ -2,6 +2,6 @@
 
 public class ToDoListException : SystemException
 {
-    protected ToDoListException(string message) 
+    public ToDoListException(string message) 
         : base (message) { }
 }

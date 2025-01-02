@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToDoList.API.Attributes;
 using ToDoList.Application.UseCases.User.Password.Change;
+using ToDoList.Application.UseCases.User.Profile;
 using ToDoList.Application.UseCases.User.Register;
 using ToDoList.Application.UseCases.User.Update;
 using ToDoList.Communication.Requests;
@@ -27,7 +28,6 @@ public class UserController : ToDoListControllerBase
     [IsAuth]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Update(
         [FromServices] IUpdateUserUseCase useCase,
         [FromBody] UpdateUserRequest request)
@@ -36,12 +36,24 @@ public class UserController : ToDoListControllerBase
         return NoContent();
     }
 
+    [HttpGet]
+    [Route("profile")]
+    [IsAuth]
+    [ProducesResponseType(typeof(UserProfileResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Profile(
+        [FromServices] IGetUserProfileUseCase useCase)
+    {
+        var result = await useCase.Execute();
+        return Ok(result);
+    }
+
+
     [HttpPost]
     [Route("change-password")]
     [IsAuth]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> ChangePassword(
         [FromServices] IPasswordChangeUseCase useCase,
         [FromBody] PasswordChangeRequest request)

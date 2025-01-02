@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToDoList.Application.UseCases.User.Register;
+using ToDoList.Application.UseCases.User.Update;
 using ToDoList.Communication.Requests;
 using ToDoList.Communication.Responses;
 
@@ -17,5 +18,18 @@ public class UserController : ToDoListControllerBase
     {
         var result = await useCase.Execute(request);
         return Created(string.Empty, result);
+    }
+
+    [HttpPost]
+    [Route("update")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Update(
+        [FromServices] IUpdateUserUseCase useCase,
+        [FromBody] UpdateUserRequest request)
+    {
+        await useCase.Execute(request);
+        return NoContent();
     }
 }

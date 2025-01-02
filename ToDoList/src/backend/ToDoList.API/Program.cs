@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using ToDoList.API.Filters;
 using ToDoList.API.Token;

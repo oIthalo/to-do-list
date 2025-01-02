@@ -79,6 +79,15 @@ namespace ToDoList.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The password is not valid..
+        /// </summary>
+        public static string INVALID_PASSWORD {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login invalid..
         /// </summary>
         public static string LOGIN_INVALID {
@@ -93,6 +102,15 @@ namespace ToDoList.Exception {
         public static string NO_TOKEN {
             get {
                 return ResourceManager.GetString("NO_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You cannot set the password equals the old password..
+        /// </summary>
+        public static string PASSWORD_ALREADY_USED {
+            get {
+                return ResourceManager.GetString("PASSWORD_ALREADY_USED", resourceCulture);
             }
         }
         

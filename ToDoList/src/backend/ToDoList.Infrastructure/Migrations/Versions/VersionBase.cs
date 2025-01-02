@@ -8,7 +8,7 @@ public abstract class VersionBase : ForwardOnlyMigration
     protected ICreateTableColumnOptionOrWithColumnSyntax CreateTable(string tableName)
     {
         return Create.Table(tableName)
-            .WithColumn("Id").AsInt64().NotNullable().PrimaryKey()
+            .WithColumn("Id").AsInt64().NotNullable().PrimaryKey().Identity()
             .WithColumn("Active").AsBoolean().NotNullable()
             .WithColumn("CreatedOn").AsDateTime().NotNullable();
     }

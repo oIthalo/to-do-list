@@ -16,4 +16,6 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetByEmail(string email) => await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Active && x.Email.Equals(email));
 
     public async Task<User?> GetByIdentifer(Guid identifier) => await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Active && x.Identifier.Equals(identifier));
+
+    public void Update(User user) => _dbContext.Users.Update(user);
 }

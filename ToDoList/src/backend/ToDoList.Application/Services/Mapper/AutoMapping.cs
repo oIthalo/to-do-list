@@ -23,6 +23,7 @@ public class AutoMapping : Profile
         CreateMap<RegisterUserRequest, User>();
         CreateMap<DoLoginRequest, User>();
         CreateMap<CreateTaskRequest, TodoTask>();
+        CreateMap<UpdateTaskRequest, TodoTask>();
     }
 
     private void DomainToRespone()

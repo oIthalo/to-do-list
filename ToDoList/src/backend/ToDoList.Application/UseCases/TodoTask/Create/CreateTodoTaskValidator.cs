@@ -2,7 +2,7 @@
 using ToDoList.Communication.Requests;
 using ToDoList.Exception;
 
-namespace ToDoList.Application.UseCases.TodoTask;
+namespace ToDoList.Application.UseCases.TodoTask.Create;
 
 public class CreateTodoTaskValidator : AbstractValidator<CreateTaskRequest>
 {

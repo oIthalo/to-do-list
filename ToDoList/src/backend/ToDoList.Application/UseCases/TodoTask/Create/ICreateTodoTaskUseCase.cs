@@ -1,7 +1,7 @@
 ﻿using ToDoList.Communication.Requests;
 using ToDoList.Communication.Responses;
 
-namespace ToDoList.Application.UseCases.TodoTask;
+namespace ToDoList.Application.UseCases.TodoTask.Create;
 
 public interface ICreateTodoTaskUseCase
 {

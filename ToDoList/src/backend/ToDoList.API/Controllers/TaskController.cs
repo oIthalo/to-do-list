@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToDoList.API.Attributes;
-using ToDoList.Application.UseCases.TodoTask;
+using ToDoList.Application.UseCases.TodoTask.Create;
 using ToDoList.Communication.Requests;
 using ToDoList.Communication.Responses;
 

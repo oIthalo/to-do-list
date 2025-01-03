@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using ToDoList.Communication.Requests;
 using ToDoList.Communication.Responses;
-using ToDoList.Domain.Entities;
 using ToDoList.Domain.Repositories;
 using ToDoList.Domain.Services.LoggedUser;
 using ToDoList.Exception.ExceptionsBase;
 
-namespace ToDoList.Application.UseCases.TodoTask;
+namespace ToDoList.Application.UseCases.TodoTask.Create;
 
 public class CreateTodoTaskUseCase : ICreateTodoTaskUseCase
 {

@@ -1,10 +1,10 @@
-﻿using FirebirdSql.Data.Services;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Sqids;
 using ToDoList.Application.Services.Mapper;
 using ToDoList.Application.UseCases.Login.DoLogin;
 using ToDoList.Application.UseCases.TodoTask.Create;
+using ToDoList.Application.UseCases.TodoTask.GetAllUserTasks;
 using ToDoList.Application.UseCases.TodoTask.Update;
 using ToDoList.Application.UseCases.User.Password.Change;
 using ToDoList.Application.UseCases.User.Profile;
@@ -52,5 +52,6 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
         services.AddScoped<ICreateTodoTaskUseCase, CreateTodoTaskUseCase>();
         services.AddScoped<IUpdateTodoTaskUseCase, UpdateTodoTaskUseCase>();
+        services.AddScoped<IGetAllUserTasksUseCase, GetAllUserTasksUseCase>();
     }
 }

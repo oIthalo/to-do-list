@@ -10,7 +10,7 @@ public class Version0000002 : VersionBase
         CreateTable("Tasks")
             .WithColumn("Title").AsString(80).NotNullable()
             .WithColumn("Description").AsString(500).NotNullable()
-            .WithColumn("Status").AsInt16().NotNullable()
+            .WithColumn("Status").AsInt32().NotNullable()
             .WithColumn("UserIdentifier").AsGuid().ForeignKey("FK_Users_Tasks_Identifier", "Users", "Identifier");
     }
 }

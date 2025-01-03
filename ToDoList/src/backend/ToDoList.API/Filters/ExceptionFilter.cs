@@ -31,6 +31,13 @@ public class ExceptionFilter : IExceptionFilter
 
             context.HttpContext.Response.StatusCode = (int)StatusCodes.Status401Unauthorized;
             context.Result = new UnauthorizedObjectResult(new ErrorResponse(exception!.Message));
+
+        } else if (context.Exception is NotFoundException notFounException)
+        {
+            var exception = context.Exception as NotFoundException;
+
+            context.HttpContext.Response.StatusCode = (int)StatusCodes.Status404NotFound;
+            context.Result = new NotFoundObjectResult(new ErrorResponse(exception!.Message));
         }
     }
 

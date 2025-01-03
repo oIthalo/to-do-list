@@ -6,6 +6,6 @@ public class TodoTask : EntityBase
 {
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public EStatusTask Status { get; set; }
-    public Guid UserId { get; set; }
+    public EStatusTask Status { get; set; } = EStatusTask.Todo;
+    public long UserId { get; set; }
 }

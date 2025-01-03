@@ -17,10 +17,12 @@ public class AutoMapping : Profile
     {
         CreateMap<RegisterUserRequest, User>();
         CreateMap<DoLoginRequest, User>();
+        CreateMap<CreateTaskRequest, TodoTask>();
     }
 
     private void DomainToRespone()
     {
         CreateMap<User, UserProfileResponse>();
+        CreateMap<TodoTask, TaskResponse>();
     }
 }

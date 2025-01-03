@@ -61,6 +61,24 @@ namespace ToDoList.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The description cannot be empty..
+        /// </summary>
+        public static string DESCRIPTION_EMPTY {
+            get {
+                return ResourceManager.GetString("DESCRIPTION_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The description must be up to 500 characters long..
+        /// </summary>
+        public static string DESCRIPTION_INVALID {
+            get {
+                return ResourceManager.GetString("DESCRIPTION_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The email cannot be empty..
         /// </summary>
         public static string EMAIL_EMPTY {
@@ -129,6 +147,15 @@ namespace ToDoList.Exception {
         public static string SHORT_PASSWORD {
             get {
                 return ResourceManager.GetString("SHORT_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The title cannot be empty..
+        /// </summary>
+        public static string TITLE_EMPTY {
+            get {
+                return ResourceManager.GetString("TITLE_EMPTY", resourceCulture);
             }
         }
         

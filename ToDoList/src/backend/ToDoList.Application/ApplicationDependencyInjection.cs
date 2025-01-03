@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using ToDoList.Application.Services.Mapper;
 using ToDoList.Application.UseCases.Login.DoLogin;
+using ToDoList.Application.UseCases.TodoTask;
 using ToDoList.Application.UseCases.User.Password.Change;
 using ToDoList.Application.UseCases.User.Profile;
 using ToDoList.Application.UseCases.User.Register;
@@ -32,5 +33,6 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         services.AddScoped<IPasswordChangeUseCase, PasswordChangeUseCase>();
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
+        services.AddScoped<ICreateTodoTaskUseCase, CreateTodoTaskUseCase>();
     }
 }

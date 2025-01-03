@@ -34,7 +34,7 @@ public class CreateTodoTaskUseCase : ICreateTodoTaskUseCase
         var user = await _loggedUser.User();
         var task = _mapper.Map<Domain.Entities.TodoTask>(request);
 
-        task.UserId = user.Id;
+        task.UserIdentifier = user.Identifier;
 
         await _todoTaskRepository.Add(task);
         await _unitOfWork.Commit();

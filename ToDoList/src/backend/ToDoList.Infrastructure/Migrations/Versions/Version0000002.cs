@@ -11,6 +11,6 @@ public class Version0000002 : VersionBase
             .WithColumn("Title").AsString(80).NotNullable()
             .WithColumn("Description").AsString(500).NotNullable()
             .WithColumn("Status").AsInt16().NotNullable()
-            .WithColumn("UserId").AsInt64().ForeignKey("FK_Users_Tasks_Id", "Users", "Id");
+            .WithColumn("UserIdentifier").AsGuid().ForeignKey("FK_Users_Tasks_Identifier", "Users", "Identifier");
     }
 }

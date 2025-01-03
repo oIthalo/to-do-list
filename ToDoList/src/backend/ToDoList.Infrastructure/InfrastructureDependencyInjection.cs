@@ -43,6 +43,7 @@ public static class InfrastructureDependencyInjection
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
     }
 
     private static void AddTokens(IServiceCollection services, IConfiguration configuration)

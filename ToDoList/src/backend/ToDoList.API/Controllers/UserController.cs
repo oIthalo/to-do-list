@@ -27,6 +27,7 @@ public class UserController : ToDoListControllerBase
     [Route("update")]
     [IsAuth]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Update(
         [FromServices] IUpdateUserUseCase useCase,
@@ -41,6 +42,7 @@ public class UserController : ToDoListControllerBase
     [IsAuth]
     [ProducesResponseType(typeof(UserProfileResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Profile(
         [FromServices] IGetUserProfileUseCase useCase)
     {
@@ -53,6 +55,7 @@ public class UserController : ToDoListControllerBase
     [Route("change-password")]
     [IsAuth]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> ChangePassword(
         [FromServices] IPasswordChangeUseCase useCase,

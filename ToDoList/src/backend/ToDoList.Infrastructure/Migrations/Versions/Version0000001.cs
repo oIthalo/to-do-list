@@ -11,6 +11,6 @@ public class Version0000001 : VersionBase
             .WithColumn("Name").AsString(50).NotNullable()
             .WithColumn("Email").AsString(160).NotNullable()
             .WithColumn("Password").AsString(2000).NotNullable()
-            .WithColumn("Identifier").AsGuid().NotNullable();
+            .WithColumn("Identifier").AsGuid().NotNullable().Unique();
     }
 }

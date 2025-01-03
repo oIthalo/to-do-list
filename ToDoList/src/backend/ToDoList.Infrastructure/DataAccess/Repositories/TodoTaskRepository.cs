@@ -13,6 +13,8 @@ public class TodoTaskRepository : ITodoTaskRepository
 
     public async Task Add(TodoTask task) => await _dbContext.Tasks.AddAsync(task);
 
+    public void Delete(TodoTask task) => _dbContext.Tasks.Remove(task);
+
     public async Task<IList<TodoTask>?> GetAllUserTasks(User user) => await _dbContext.Tasks.AsNoTracking().Where(x => x.Active && x.UserIdentifier.Equals(user.Identifier)).ToListAsync();
 
     public async Task<TodoTask?> GetById(User user, long id) => await _dbContext.Tasks.AsNoTracking().FirstOrDefaultAsync(x => x.Active && x.Id.Equals(id) && x.UserIdentifier.Equals(user.Identifier));

@@ -8,4 +8,5 @@ public interface ITodoTaskRepository
     void Update(TodoTask task);
     Task<TodoTask?> GetById(User user, long id);
     Task<IList<TodoTask>?> GetAllUserTasks(User user);
+    void Delete(TodoTask task);
 }

@@ -2,6 +2,7 @@
 using ToDoList.API.Attributes;
 using ToDoList.API.Binders;
 using ToDoList.Application.UseCases.TodoTask.Create;
+using ToDoList.Application.UseCases.TodoTask.Delete;
 using ToDoList.Application.UseCases.TodoTask.GetAllUserTasks;
 using ToDoList.Application.UseCases.TodoTask.GetById;
 using ToDoList.Application.UseCases.TodoTask.Update;
@@ -31,6 +32,7 @@ public class TaskController : ToDoListControllerBase
     [IsAuth]
     [ProducesResponseType(typeof(TaskResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetById(
         [FromServices] IGetTaskById useCase,
@@ -45,6 +47,7 @@ public class TaskController : ToDoListControllerBase
     [IsAuth]
     [ProducesResponseType(typeof(TaskResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetAllUserTasks(
         [FromServices] IGetAllUserTasksUseCase useCase)
@@ -53,11 +56,12 @@ public class TaskController : ToDoListControllerBase
         return Ok(result);
     }
 
-    [HttpPost]
+    [HttpPut]
     [Route("update/{id}")]
     [IsAuth]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Update(
         [FromServices] IUpdateTodoTaskUseCase useCase,
@@ -65,6 +69,21 @@ public class TaskController : ToDoListControllerBase
         [FromBody] UpdateTaskRequest request)
     {
         await useCase.Execute(id, request);
+        return NoContent();
+    }
+
+    [HttpDelete]
+    [Route("delete/{id}")]
+    [IsAuth]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Delete(
+        [FromServices] IDeleteTaskUseCase useCase,
+        [FromRoute][ModelBinder(typeof(ToDoListIdBinder))] long id)
+    {
+        await useCase.Execute(id);
         return NoContent();
     }
 }

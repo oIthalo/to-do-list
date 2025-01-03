@@ -4,6 +4,7 @@ using Sqids;
 using ToDoList.Application.Services.Mapper;
 using ToDoList.Application.UseCases.Login.DoLogin;
 using ToDoList.Application.UseCases.TodoTask.Create;
+using ToDoList.Application.UseCases.TodoTask.Delete;
 using ToDoList.Application.UseCases.TodoTask.GetAllUserTasks;
 using ToDoList.Application.UseCases.TodoTask.GetById;
 using ToDoList.Application.UseCases.TodoTask.Update;
@@ -55,5 +56,6 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IUpdateTodoTaskUseCase, UpdateTodoTaskUseCase>();
         services.AddScoped<IGetAllUserTasksUseCase, GetAllUserTasksUseCase>();
         services.AddScoped<IGetTaskById, GetTaskById>();
+        services.AddScoped<IDeleteTaskUseCase, DeleteTaskUseCase>();
     }
 }

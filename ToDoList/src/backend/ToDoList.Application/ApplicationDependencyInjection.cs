@@ -5,6 +5,7 @@ using ToDoList.Application.Services.Mapper;
 using ToDoList.Application.UseCases.Login.DoLogin;
 using ToDoList.Application.UseCases.TodoTask.Create;
 using ToDoList.Application.UseCases.TodoTask.GetAllUserTasks;
+using ToDoList.Application.UseCases.TodoTask.GetById;
 using ToDoList.Application.UseCases.TodoTask.Update;
 using ToDoList.Application.UseCases.User.Password.Change;
 using ToDoList.Application.UseCases.User.Profile;
@@ -53,5 +54,6 @@ public static class ApplicationDependencyInjection
         services.AddScoped<ICreateTodoTaskUseCase, CreateTodoTaskUseCase>();
         services.AddScoped<IUpdateTodoTaskUseCase, UpdateTodoTaskUseCase>();
         services.AddScoped<IGetAllUserTasksUseCase, GetAllUserTasksUseCase>();
+        services.AddScoped<IGetTaskById, GetTaskById>();
     }
 }

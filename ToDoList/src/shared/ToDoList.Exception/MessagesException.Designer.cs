@@ -115,7 +115,7 @@ namespace ToDoList.Exception {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The token cannot be null or empty..
+        ///   Looks up a localized string similar to The user need be logged..
         /// </summary>
         public static string NO_TOKEN {
             get {

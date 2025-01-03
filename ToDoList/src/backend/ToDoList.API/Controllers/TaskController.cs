@@ -3,6 +3,7 @@ using ToDoList.API.Attributes;
 using ToDoList.API.Binders;
 using ToDoList.Application.UseCases.TodoTask.Create;
 using ToDoList.Application.UseCases.TodoTask.GetAllUserTasks;
+using ToDoList.Application.UseCases.TodoTask.GetById;
 using ToDoList.Application.UseCases.TodoTask.Update;
 using ToDoList.Communication.Requests;
 using ToDoList.Communication.Responses;
@@ -26,12 +27,26 @@ public class TaskController : ToDoListControllerBase
     }
 
     [HttpGet]
+    [Route("get/{id}")]
+    [IsAuth]
+    [ProducesResponseType(typeof(TaskResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> GetById(
+        [FromServices] IGetTaskById useCase,
+        [FromRoute][ModelBinder(typeof(ToDoListIdBinder))] long id)
+    {
+        var result = await useCase.Execute(id);
+        return Ok(result);
+    }
+
+    [HttpGet]
     [Route("get-all")]
     [IsAuth]
     [ProducesResponseType(typeof(TaskResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Update(
+    public async Task<IActionResult> GetAllUserTasks(
         [FromServices] IGetAllUserTasksUseCase useCase)
     {
         var result = await useCase.Execute();
@@ -47,8 +62,7 @@ public class TaskController : ToDoListControllerBase
     public async Task<IActionResult> Update(
         [FromServices] IUpdateTodoTaskUseCase useCase,
         [FromRoute][ModelBinder(typeof(ToDoListIdBinder))] long id,
-        [FromBody] UpdateTaskRequest request
-        )
+        [FromBody] UpdateTaskRequest request)
     {
         await useCase.Execute(id, request);
         return NoContent();

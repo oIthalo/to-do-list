@@ -139,7 +139,7 @@
     <value>Not found.</value>
   </data>
   <data name="NO_TOKEN" xml:space="preserve">
-    <value>The token cannot be null or empty.</value>
+    <value>The user need be logged.</value>
   </data>
   <data name="PASSWORD_ALREADY_USED" xml:space="preserve">
     <value>You cannot set the password equals the old password.</value>

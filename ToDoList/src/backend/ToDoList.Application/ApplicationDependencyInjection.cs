@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Sqids;
 using ToDoList.Application.Services.Mapper;
 using ToDoList.Application.UseCases.Login.DoLogin;
+using ToDoList.Application.UseCases.TodoTask.ChangeStatus;
 using ToDoList.Application.UseCases.TodoTask.Create;
 using ToDoList.Application.UseCases.TodoTask.Delete;
 using ToDoList.Application.UseCases.TodoTask.GetAllUserTasks;
@@ -57,5 +58,6 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IGetAllUserTasksUseCase, GetAllUserTasksUseCase>();
         services.AddScoped<IGetTaskById, GetTaskById>();
         services.AddScoped<IDeleteTaskUseCase, DeleteTaskUseCase>();
+        services.AddScoped<IChangeStatusUseCase, ChangeStatusUseCase>();
     }
 }

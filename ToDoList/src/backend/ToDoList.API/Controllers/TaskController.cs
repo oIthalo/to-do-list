@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToDoList.API.Attributes;
+using ToDoList.API.Binders;
 using ToDoList.Application.UseCases.TodoTask.Create;
+using ToDoList.Application.UseCases.TodoTask.Update;
 using ToDoList.Communication.Requests;
 using ToDoList.Communication.Responses;
 
@@ -20,5 +22,21 @@ public class TaskController : ToDoListControllerBase
     {
         var result = await useCase.Execute(request);
         return Created(string.Empty, result);
+    }
+
+    [HttpPost]
+    [Route("update/{id}")]
+    [IsAuth]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Update(
+        [FromServices] IUpdateTodoTaskUseCase useCase,
+        [FromRoute][ModelBinder(typeof(ToDoListIdBinder))] long id,
+        [FromBody] UpdateTaskRequest request
+        )
+    {
+        await useCase.Execute(id, request);
+        return NoContent();
     }
 }

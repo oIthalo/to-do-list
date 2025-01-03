@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToDoList.API.Attributes;
 using ToDoList.API.Binders;
+using ToDoList.Application.UseCases.TodoTask.ChangeStatus;
 using ToDoList.Application.UseCases.TodoTask.Create;
 using ToDoList.Application.UseCases.TodoTask.Delete;
 using ToDoList.Application.UseCases.TodoTask.GetAllUserTasks;
@@ -8,6 +9,7 @@ using ToDoList.Application.UseCases.TodoTask.GetById;
 using ToDoList.Application.UseCases.TodoTask.Update;
 using ToDoList.Communication.Requests;
 using ToDoList.Communication.Responses;
+using ToDoList.Domain.Enums;
 
 namespace ToDoList.API.Controllers;
 
@@ -84,6 +86,22 @@ public class TaskController : ToDoListControllerBase
         [FromRoute][ModelBinder(typeof(ToDoListIdBinder))] long id)
     {
         await useCase.Execute(id);
+        return NoContent();
+    }
+
+    [HttpPut]
+    [Route("change-status/{id}")] 
+    [IsAuth]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> ChangeStatus(
+        [FromServices] IChangeStatusUseCase useCase,
+        [FromRoute][ModelBinder(typeof(ToDoListIdBinder))] long id,
+        [FromBody] EStatusTask status)
+    {
+        await useCase.Execute(id, status);
         return NoContent();
     }
 }

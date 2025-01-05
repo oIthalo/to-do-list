@@ -1,4 +1,6 @@
-﻿namespace ToDoList.Exception.ExceptionsBase;
+﻿using System.Net;
+
+namespace ToDoList.Exception.ExceptionsBase;
 
 public class ErrorOnValidationException : ToDoListException
 {
@@ -6,4 +8,8 @@ public class ErrorOnValidationException : ToDoListException
         ErrorMessages = errorMessages;
 
     public IList<string> ErrorMessages { get; set; }
+
+    public override IList<string> GetErrorMessages() => ErrorMessages;
+
+    public override HttpStatusCode GetStatusCode() => HttpStatusCode.BadRequest;
 }

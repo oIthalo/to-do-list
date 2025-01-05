@@ -151,6 +151,15 @@ namespace ToDoList.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refresh token not found..
+        /// </summary>
+        public static string REFRESH_TOKEN_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("REFRESH_TOKEN_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password must be 8 or more characters long..
         /// </summary>
         public static string SHORT_PASSWORD {

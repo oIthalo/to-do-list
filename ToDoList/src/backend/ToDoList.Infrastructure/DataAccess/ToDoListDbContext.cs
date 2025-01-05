@@ -10,6 +10,7 @@ public class ToDoListDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<TodoTask> Tasks { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) =>
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ToDoListDbContext).Assembly);

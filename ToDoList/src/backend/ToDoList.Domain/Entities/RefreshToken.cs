@@ -3,7 +3,7 @@
 public class RefreshToken : EntityBase
 {
     public required string Value { get; set; } = string.Empty;
-    public required Guid UserIdentifier { get; set; }
+    public required long UserId { get; set; }
 
     public User User { get; set; } = default!;
 }

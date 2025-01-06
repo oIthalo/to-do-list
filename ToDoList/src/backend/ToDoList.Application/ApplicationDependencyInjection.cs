@@ -9,6 +9,7 @@ using ToDoList.Application.UseCases.TodoTask.Delete;
 using ToDoList.Application.UseCases.TodoTask.GetAllUserTasks;
 using ToDoList.Application.UseCases.TodoTask.GetById;
 using ToDoList.Application.UseCases.TodoTask.Update;
+using ToDoList.Application.UseCases.Token.RefreshToken;
 using ToDoList.Application.UseCases.User.Password.Change;
 using ToDoList.Application.UseCases.User.Profile;
 using ToDoList.Application.UseCases.User.Register;
@@ -59,5 +60,6 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IGetTaskById, GetTaskById>();
         services.AddScoped<IDeleteTaskUseCase, DeleteTaskUseCase>();
         services.AddScoped<IChangeStatusUseCase, ChangeStatusUseCase>();
+        services.AddScoped<IUseRefreshTokenUseCase, UseRefreshTokenUseCase>();
     }
 }

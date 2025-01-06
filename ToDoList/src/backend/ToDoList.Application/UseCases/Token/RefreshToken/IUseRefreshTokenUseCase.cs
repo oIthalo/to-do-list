@@ -1,8 +1,9 @@
 ﻿using ToDoList.Communication.Requests;
+using ToDoList.Communication.Responses;
 
 namespace ToDoList.Application.UseCases.Token.RefreshToken;
 
 public interface IUseRefreshTokenUseCase
 {
-    Task Execute(NewTokenRequest request);
+    Task<TokensResponse> Execute(NewTokenRequest request);
 }

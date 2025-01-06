@@ -13,6 +13,7 @@ using ToDoList.Infrastructure.Extensions;
 using ToDoList.Infrastructure.Security.Criptography;
 using ToDoList.Infrastructure.Security.Tokens.Access.Generator;
 using ToDoList.Infrastructure.Security.Tokens.Access.Validator;
+using ToDoList.Infrastructure.Security.Tokens.Refresh.Generator;
 using ToDoList.Infrastructure.Services.LoggedUser;
 
 namespace ToDoList.Infrastructure;
@@ -54,6 +55,7 @@ public static class InfrastructureDependencyInjection
 
         services.AddScoped<IAccessTokenGenerator>(opts => new GenerateAccessToken(expiration, signingKey!));
         services.AddScoped<ITokenValidator>(opts => new TokenValidator(signingKey!));
+        services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
     }
 
     private static void AddEncripter(IServiceCollection services) => services.AddScoped<IPasswordEncripter, BCryptNet>();

@@ -9,6 +9,6 @@ public class Version0000003 : VersionBase
     {
         CreateTable("RefreshTokens")
             .WithColumn("Value").AsString().NotNullable()
-            .WithColumn("UserIdentifier").AsGuid().NotNullable().ForeignKey("FK_RefreshTokens_User_Identifier", "Users", "Identifier");
+            .WithColumn("UserId").AsInt64().NotNullable().ForeignKey("FK_RefreshTokens_User_Id", "Users", "Id");
     }
 }

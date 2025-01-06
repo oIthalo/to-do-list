@@ -10,6 +10,7 @@ public class RegisterUserValidator : AbstractValidator<RegisterUserRequest>
 	{
 		RuleFor(x => x.Name).NotEmpty().WithMessage(MessagesException.USER_NAME_EMPTY);
 		RuleFor(x => x.Email).NotEmpty().WithMessage(MessagesException.EMAIL_EMPTY);
+		RuleFor(x => x.Password).NotEmpty().WithMessage(MessagesException.PASSWORD_EMPTY);
 		When(x => !string.IsNullOrWhiteSpace(x.Email), () =>
 		{
 			RuleFor(x => x.Email).EmailAddress().WithMessage(MessagesException.EMAIL_INVALID);

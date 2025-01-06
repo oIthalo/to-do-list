@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToDoList.API.Attributes;
+using ToDoList.Application.UseCases.Login.DoLogin;
 using ToDoList.Application.UseCases.User.Password.Change;
 using ToDoList.Application.UseCases.User.Profile;
 using ToDoList.Application.UseCases.User.Register;
@@ -21,6 +22,19 @@ public class UserController : ToDoListControllerBase
     {
         var result = await useCase.Execute(request);
         return Created(string.Empty, result);
+    }
+
+    [HttpPost]
+    [Route("login")]
+    [ProducesResponseType(typeof(RegisterUserResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Login(
+        [FromServices] ILoginUseCase useCase,
+        [FromBody] DoLoginRequest request)
+    {
+        var result = await useCase.Execute(request);
+        return Ok(result);
     }
 
     [HttpPost]

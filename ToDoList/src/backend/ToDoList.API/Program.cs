@@ -51,6 +51,16 @@ builder.Services.AddSwaggerGen(opts =>
     });
 });
 
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAll", builder =>
+        {
+            builder.AllowAnyOrigin()  // Permite qualquer origem (domínio)
+                   .AllowAnyMethod()  // Permite qualquer método HTTP (GET, POST, etc.)
+                   .AllowAnyHeader(); // Permite qualquer cabeçalho
+        });
+    });
+
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
 
 builder.Services.AddApplication(builder.Configuration);
@@ -69,6 +79,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

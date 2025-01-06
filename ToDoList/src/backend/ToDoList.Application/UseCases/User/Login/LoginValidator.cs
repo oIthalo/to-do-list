@@ -9,6 +9,7 @@ public class LoginValidator : AbstractValidator<DoLoginRequest>
     public LoginValidator()
     {
         RuleFor(x => x.Email).NotEmpty().WithMessage(MessagesException.EMAIL_EMPTY);
+        RuleFor(x => x.Password).NotEmpty().WithMessage(MessagesException.PASSWORD_EMPTY);
         When(x => !string.IsNullOrWhiteSpace(x.Email), () =>
         {
             RuleFor(x => x.Email).EmailAddress().WithMessage(MessagesException.EMAIL_INVALID);

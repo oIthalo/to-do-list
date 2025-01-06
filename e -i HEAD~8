@@ -1,0 +1,71 @@
+[33md7f98cc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m feat: todo tasks update validator tests
+[33m57413d2[m feat: create task validator tests
+[33m203ddfc[m feat: update user profile validators test
+[33m516d7b4[m feat: change password validator tests
+[33m21fce3f[m feat: login validator tests
+[33madb74ea[m feat: improvement in the project architecture
+[33m53a90fe[m feat: register user validator tests
+[33m23ab78a[m feat: tests architecture
+[33m4036e45[m feat: adding cors
+[33me439dea[m feat: implementing refresh token
+[33m7fff10a[m feat: improvements in de exceptions
+[33m7da52d8[m feat: adding value object to get the rule constrants
+[33m98ba856[m feat: improving the exception filter
+[33md1de044[m feat: adding refresh token not found exception
+[33m1d486cf[m feat: implementing get on token repository
+[33mda57fdb[m feat: adding refresh token on dbcontext
+[33m5399750[m feat: starting the use case flow to refresh token
+[33ma9fa891[m feat: creating entity and repository to refresh token
+[33m67117ad[m feat: migration to add refrsh tokens table
+[33mcf8af32[m feat: endpoint to change status of a task
+[33m628094a[m feat: adding use case to change task status
+[33m02727fb[m feat: deleting a task
+[33mbe4c062[m feat: use case to delete task
+[33m08071a4[m feat: adding method in task repository to delete an task
+[33m75b5f2e[m feat: getting user by id
+[33mdff3a6f[m fix: adding mapping to solve the issues on update task
+[33m52191ce[m feat: adding swagger filter to accept string like id
+[33m853212e[m feat: getting all tasks from user
+[33m5b0ce4c[m feat: adding function to update task
+[33md7942f3[m feat: adding binder to id
+[33m4b283da[m feat: adding new responses and request to update a task
+[33m5891a99[m feat: adding the not found exception
+[33m6ac9f11[m feat: improvents in project architecture
+[33mb0c8fae[m feat: improvements in database
+[33mf5688c8[m feat: creating a task
+[33m8792b01[m feat: creating a todo task repository
+[33m74dafe1[m feat: changing name of task entity to remove conflits
+[33mcca13a7[m feat: adding table and entity task
+[33m5818cb7[m feat: getting user profile
+[33m00f32c7[m feat: flow to change user password
+[33mb5c309e[m feat: updating user profile
+[33m13f9181[m feat: configuring swagger to get the token on request
+[33m36b7cce[m feat: getting an user by token
+[33m98fa9d5[m feat: adding token validator and custom attribute to verify if user is authenticated
+[33mff38b7c[m feat: creating database with API
+[33mee09180[m fix: fixing error in BCrypt
+[33mc99c3dd[m feat: creating database with API
+[33ma14b479[m feat: adding string converter to remove extra white spaces on requests
+[33m6b36a48[m feat: improvements to get url in lower case
+[33m37faf81[m feat: adding password encripter with BCrypt
+[33m245fb53[m feat: adding new dependency injections
+[33m6913a10[m feat: adding login controller and improvement in user controller
+[33mf2c0fff[m feat: adding login use case and improvement register use case
+[33ma91bf56[m feat: adding generate access token
+[33m6d2f1b0[m feat: adding invalid login exception on filter
+[33mbb45725[m feat: adding new function on user repository
+[33m2dce004[m feat: adding new exception message and invalid login exception
+[33m38de127[m feat: new requests and responses
+[33m0125873[m feat: commiting the repositories again
+[33mb2bfbbc[m feat: adding files of dependency injection
+[33m81833f7[m feat: adding user controller
+[33mf4e367e[m feat: adding exception filter
+[33m8987373[m feat: adding user use case
+[33m1056aaf[m feat: adding automapper
+[33m6ba3d1a[m feat: db context and unit of word and user repository
+[33meb204a8[m feat: adding user repository and unit of work
+[33medf51e5[m feat: creating user entity
+[33m022bed6[m feat: adding responses and requests required to register user
+[33me9de9f5[m feat: adding custom exceptions and messages exceptions
+[33m3e85506[m feat: initial commit
+[33m51ebdcc[m Initial commit

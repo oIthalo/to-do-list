@@ -3,7 +3,7 @@ using FluentAssertions;
 using ToDoList.Application.UseCases.TodoTask.Create;
 using ToDoList.Exception;
 
-namespace Validators.Test.TodoTasks;
+namespace Validators.Test.TodoTasks.Create;
 
 public class CreateTodoTaskValidatorTest
 {

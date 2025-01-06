@@ -147,6 +147,12 @@
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>The password cannot be empty.</value>
   </data>
+  <data name="REFRESH_TOKEN_EXPIRED" xml:space="preserve">
+    <value>The refresh token is expired.</value>
+  </data>
+  <data name="REFRESH_TOKEN_NOT_FOUND" xml:space="preserve">
+    <value>Refresh token not found.</value>
+  </data>
   <data name="SHORT_PASSWORD" xml:space="preserve">
     <value>The password must be 8 or more characters long.</value>
   </data>

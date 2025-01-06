@@ -2,9 +2,9 @@
 
 namespace ToDoList.Exception.ExceptionsBase;
 
-public class ErrorOnInvalidLogin : ToDoListException
+public class RefreshTokenExpiredException : ToDoListException
 {
-    public ErrorOnInvalidLogin() : base(MessagesException.LOGIN_INVALID)
+    public RefreshTokenExpiredException() : base(MessagesException.REFRESH_TOKEN_EXPIRED)
     {
     }
 

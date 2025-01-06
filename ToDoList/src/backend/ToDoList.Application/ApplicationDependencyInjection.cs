@@ -3,11 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Sqids;
 using ToDoList.Application.Services.Mapper;
 using ToDoList.Application.UseCases.Login.DoLogin;
+using ToDoList.Application.UseCases.TodoTask.ChangeStatus;
 using ToDoList.Application.UseCases.TodoTask.Create;
 using ToDoList.Application.UseCases.TodoTask.Delete;
 using ToDoList.Application.UseCases.TodoTask.GetAllUserTasks;
 using ToDoList.Application.UseCases.TodoTask.GetById;
 using ToDoList.Application.UseCases.TodoTask.Update;
+using ToDoList.Application.UseCases.Token.RefreshToken;
 using ToDoList.Application.UseCases.User.Password.Change;
 using ToDoList.Application.UseCases.User.Profile;
 using ToDoList.Application.UseCases.User.Register;
@@ -57,5 +59,7 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IGetAllUserTasksUseCase, GetAllUserTasksUseCase>();
         services.AddScoped<IGetTaskById, GetTaskById>();
         services.AddScoped<IDeleteTaskUseCase, DeleteTaskUseCase>();
+        services.AddScoped<IChangeStatusUseCase, ChangeStatusUseCase>();
+        services.AddScoped<IUseRefreshTokenUseCase, UseRefreshTokenUseCase>();
     }
 }

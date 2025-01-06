@@ -10,35 +10,16 @@ public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is ToDoListException)
-            HandleProjectException(context);
+        if (context.Exception is ToDoListException toDoListException)
+            HandleProjectException(toDoListException, context);
         else
             ThrowExceptionUnknown(context);
     }
 
-    private static void HandleProjectException(ExceptionContext context)
+    private static void HandleProjectException(ToDoListException toDoListException,ExceptionContext context)
     {
-        if (context.Exception is ErrorOnValidationException errorOnValidationException)
-        {
-            var exception = context.Exception as ErrorOnValidationException;
-
-            context.HttpContext.Response.StatusCode = (int)StatusCodes.Status400BadRequest;
-            context.Result = new BadRequestObjectResult(new ErrorResponse(exception!.ErrorMessages));
-
-        } else if (context.Exception is ErrorOnInvalidLogin errorOnInvalidLogin)
-        {
-            var exception = context.Exception as ErrorOnInvalidLogin;
-
-            context.HttpContext.Response.StatusCode = (int)StatusCodes.Status401Unauthorized;
-            context.Result = new UnauthorizedObjectResult(new ErrorResponse(exception!.Message));
-
-        } else if (context.Exception is NotFoundException notFounException)
-        {
-            var exception = context.Exception as NotFoundException;
-
-            context.HttpContext.Response.StatusCode = (int)StatusCodes.Status404NotFound;
-            context.Result = new NotFoundObjectResult(new ErrorResponse(exception!.Message));
-        }
+        context.HttpContext.Response.StatusCode = (int)toDoListException.GetStatusCode();
+        context.Result = new ObjectResult(new ErrorResponse(toDoListException.GetErrorMessages()));
     }
 
     private static void ThrowExceptionUnknown(ExceptionContext context)

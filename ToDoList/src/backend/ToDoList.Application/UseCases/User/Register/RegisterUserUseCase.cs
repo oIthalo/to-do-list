@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ToDoList.Communication.Requests;
 using ToDoList.Communication.Responses;
+using ToDoList.Domain.Entities;
 using ToDoList.Domain.Repositories;
 using ToDoList.Domain.Security.Criptography;
 using ToDoList.Domain.Security.Tokens;
@@ -15,19 +16,25 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IUnitOfWork _unitOfWork;
     private readonly IAccessTokenGenerator _accessTokenGenerator;
     private readonly IPasswordEncripter _passwordEncripter;
+    private readonly IRefreshTokenGenerator _refreshTokenGenerator;
+    private readonly IRefreshTokenRepository _refreshTokenRepository;
 
     public RegisterUserUseCase(
         IUserRepository userRepository,
         IMapper mapper,
         IUnitOfWork unitOfWork,
         IAccessTokenGenerator accessTokenGenerator,
-        IPasswordEncripter passwordEncripter)
+        IPasswordEncripter passwordEncripter,
+        IRefreshTokenGenerator refreshTokenGenerator,
+        IRefreshTokenRepository refreshTokenRepository)
     {
         _userRepository = userRepository;
         _mapper = mapper;
         _unitOfWork = unitOfWork;
         _accessTokenGenerator = accessTokenGenerator;
         _passwordEncripter = passwordEncripter;
+        _refreshTokenGenerator = refreshTokenGenerator;
+        _refreshTokenRepository = refreshTokenRepository;
     }
 
     public async Task<RegisterUserResponse> Execute(RegisterUserRequest request)
@@ -42,14 +49,32 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
         var token = _accessTokenGenerator.Generate(user.Identifier);
 
+        var refreshToken = await CreateAndSaveRefreshToken(user);
+
         return new RegisterUserResponse()
         {
             Name = user.Name,
             Tokens = new TokensResponse()
             {
-                AccessToken = token
+                AccessToken = token,
+                RefreshToken = refreshToken
             }
         };
+    }
+
+    private async Task<string> CreateAndSaveRefreshToken(Domain.Entities.User user)
+    {
+        var refreshToken = _refreshTokenGenerator.Generate();
+
+        await _refreshTokenRepository.SaveNewRefreshToken(new RefreshToken
+        {
+            Value = refreshToken,
+            UserId = user.Id
+        });
+
+        await _unitOfWork.Commit();
+
+        return refreshToken;
     }
 
     private static void Validate(RegisterUserRequest request)

@@ -30,7 +30,7 @@ public class IsAuthFilter : IAsyncAuthorizationFilter
 
             var userIdentifier = _tokenValidator.ValidateAndGetUserIdentifier(token);
 
-            var user = await _userRepository.GetByIdentifer(userIdentifier) ?? throw new ToDoListException(MessagesException.USER_WITHOUT_PERMISSION);
+            var user = await _userRepository.GetByIdentifer(userIdentifier) ?? throw new UnauthorizedException(MessagesException.USER_WITHOUT_PERMISSION);
         }
         catch (SecurityTokenExpiredException)
         {
@@ -39,9 +39,10 @@ public class IsAuthFilter : IAsyncAuthorizationFilter
                 TokenIsExpired = true,
             });
         }
-        catch (ToDoListException ex)
+        catch (ToDoListException toDoListException)
         {
-            context.Result = new UnauthorizedObjectResult(new ErrorResponse(ex.Message));
+            context.HttpContext.Response.StatusCode = (int)toDoListException.GetStatusCode();
+            context.Result = new ObjectResult(new ErrorResponse(toDoListException.GetErrorMessages()));
         }
         catch
         {
@@ -52,8 +53,8 @@ public class IsAuthFilter : IAsyncAuthorizationFilter
     private static string TokenOnRequest(AuthorizationFilterContext context)
     {
         var authentication = context.HttpContext.Request.Headers.Authorization.ToString();
-        if (string.IsNullOrWhiteSpace(authentication))
-            throw new ToDoListException(MessagesException.NO_TOKEN);
+        if (string.IsNullOrWhiteSpace(authentication))  
+            throw new UnauthorizedException(MessagesException.NO_TOKEN);
 
         return authentication["Bearer ".Length..].Trim();
     }

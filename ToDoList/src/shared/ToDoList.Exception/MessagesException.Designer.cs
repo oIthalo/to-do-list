@@ -151,6 +151,15 @@ namespace ToDoList.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The refresh token is expired..
+        /// </summary>
+        public static string REFRESH_TOKEN_EXPIRED {
+            get {
+                return ResourceManager.GetString("REFRESH_TOKEN_EXPIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refresh token not found..
         /// </summary>
         public static string REFRESH_TOKEN_NOT_FOUND {

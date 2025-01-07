@@ -6,6 +6,6 @@ public class RegisterUserUseCaseTest
 {
     private static RegisterUserUseCase CreateUseCase()
     {
-        throw new NotImplementedException();
+        return new
     }
 }

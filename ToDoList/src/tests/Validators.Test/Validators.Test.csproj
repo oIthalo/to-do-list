@@ -11,14 +11,20 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
+<<<<<<< HEAD
     <PackageReference Include="FluentAssertions" Version="7.0.0" />
+=======
+>>>>>>> 23ab78a (feat: tests architecture)
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="xunit" Version="2.5.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <ProjectReference Include="..\..\backend\ToDoList.Application\ToDoList.Application.csproj" />
+=======
+>>>>>>> 23ab78a (feat: tests architecture)
     <ProjectReference Include="..\CommonUtilities.Test\CommonTestUtilities.csproj" />
   </ItemGroup>
 

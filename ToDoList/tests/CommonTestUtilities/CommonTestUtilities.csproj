@@ -6,15 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-<<<<<<< HEAD
   <ItemGroup>
     <PackageReference Include="Bogus" Version="35.6.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\shared\ToDoList.Communication\ToDoList.Communication.csproj" />
+    <ProjectReference Include="..\..\src\shared\ToDoList.Communication\ToDoList.Communication.csproj" />
   </ItemGroup>
 
-=======
->>>>>>> 23ab78a (feat: tests architecture)
 </Project>

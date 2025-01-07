@@ -129,6 +129,9 @@
   <data name="EMAIL_INVALID" xml:space="preserve">
     <value>The email is not valid.</value>
   </data>
+  <data name="EXIST_USER" xml:space="preserve">
+    <value>Already exist an active user with this email.</value>
+  </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>The password is not valid.</value>
   </data>

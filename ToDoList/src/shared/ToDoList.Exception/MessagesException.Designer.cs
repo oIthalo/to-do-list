@@ -97,6 +97,15 @@ namespace ToDoList.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Already exist an active user with this email..
+        /// </summary>
+        public static string EXIST_USER {
+            get {
+                return ResourceManager.GetString("EXIST_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password is not valid..
         /// </summary>
         public static string INVALID_PASSWORD {

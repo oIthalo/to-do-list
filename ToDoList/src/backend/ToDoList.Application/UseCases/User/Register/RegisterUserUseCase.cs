@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using FluentValidation.Results;
 using ToDoList.Communication.Requests;
 using ToDoList.Communication.Responses;
 using ToDoList.Domain.Entities;
 using ToDoList.Domain.Repositories;
 using ToDoList.Domain.Security.Criptography;
 using ToDoList.Domain.Security.Tokens;
+using ToDoList.Exception;
 using ToDoList.Exception.ExceptionsBase;
 
 namespace ToDoList.Application.UseCases.User.Register;
@@ -39,7 +41,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
     public async Task<RegisterUserResponse> Execute(RegisterUserRequest request)
     {
-        Validate(request);
+        await Validate(request);
 
         var user = _mapper.Map<Domain.Entities.User>(request);
         user.Password = _passwordEncripter.Encrypt(request.Password);
@@ -77,9 +79,13 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         return refreshToken;
     }
 
-    private static void Validate(RegisterUserRequest request)
+    private async Task Validate(RegisterUserRequest request)
     {
         var result = new RegisterUserValidator().Validate(request);
+
+        var existUser = await _userRepository.ExistActiveUserWithEmail(request.Email);
+        if (existUser)
+            result.Errors.Add(new ValidationFailure(string.Empty, MessagesException.EXIST_USER));
 
         if (!result.IsValid)
             throw new ErrorOnValidationException(result.Errors.Select(x => x.ErrorMessage).ToList());

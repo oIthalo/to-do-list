@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Bogus" Version="35.6.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\backend\ToDoList.Application\ToDoList.Application.csproj" />
     <ProjectReference Include="..\..\src\shared\ToDoList.Communication\ToDoList.Communication.csproj" />
   </ItemGroup>
 

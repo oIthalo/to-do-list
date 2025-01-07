@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using CommonTestUtilities.Entities;
+using Moq;
+using ToDoList.Domain.Entities;
 using ToDoList.Domain.Repositories;
 
 namespace CommonTestUtilities.Repositories;
@@ -14,5 +16,10 @@ public class UserRepositoryBuilder
     public void ExistActiveUserWithEmail(string email)
     {
         _repository.Setup(repository => repository.ExistActiveUserWithEmail(email)).ReturnsAsync(true);
+    }
+
+    public void GetByEmail(User user)
+    {
+        _repository.Setup(repository => repository.GetByEmail(user.Email)).ReturnsAsync(user);
     }
 }

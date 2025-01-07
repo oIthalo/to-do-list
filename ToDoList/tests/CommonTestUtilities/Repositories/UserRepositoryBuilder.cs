@@ -1,5 +1,4 @@
-﻿using CommonTestUtilities.Entities;
-using Moq;
+﻿using Moq;
 using ToDoList.Domain.Entities;
 using ToDoList.Domain.Repositories;
 
@@ -21,5 +20,10 @@ public class UserRepositoryBuilder
     public void GetByEmail(User user)
     {
         _repository.Setup(repository => repository.GetByEmail(user.Email)).ReturnsAsync(user);
+    }
+
+    public void GetByIdentifier(User user)
+    {
+        _repository.Setup(repository => repository.GetByIdentifer(user.Identifier)).ReturnsAsync(user);
     }
 }

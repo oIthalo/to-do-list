@@ -1,5 +1,6 @@
 ﻿using ToDoList.Domain.Repositories;
 using ToDoList.Domain.Services.LoggedUser;
+using ToDoList.Exception;
 using ToDoList.Exception.ExceptionsBase;
 
 namespace ToDoList.Application.UseCases.TodoTask.Delete;
@@ -24,7 +25,7 @@ public class DeleteTaskUseCase : IDeleteTaskUseCase
     {
         var user = await _loggedUser.User();
 
-        var task = await _todoTaskRepository.GetById(user, id) ?? throw new NotFoundException();
+        var task = await _todoTaskRepository.GetById(user, id) ?? throw new NotFoundException(MessagesException.TASK_NOT_FOUND);
 
         _todoTaskRepository.Delete(task);
         await _unitOfWork.Commit();

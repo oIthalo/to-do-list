@@ -41,6 +41,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public ToDoList.Domain.Entities.User GetUser() => _user;
     public string GetPassword() => _password;
     public string GetEmail() => _user.Email;
+    public Guid GetUserIdentifier() => _user.Identifier;
 
     private void StartDataBase(ToDoListDbContext dbContext)
     {

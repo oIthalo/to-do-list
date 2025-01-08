@@ -26,6 +26,8 @@ public class RegisterUserTest : ToDoListClassFixture
         var responseData = await JsonDocument.ParseAsync(responseBody);
 
         responseData.RootElement.GetProperty("name").GetString().Should().NotBeNullOrWhiteSpace().And.Be(request.Name);
+        responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().Should().NotBeNullOrWhiteSpace();
+        responseData.RootElement.GetProperty("tokens").GetProperty("refreshToken").GetString().Should().NotBeNullOrWhiteSpace();
     }
 
     [Fact]

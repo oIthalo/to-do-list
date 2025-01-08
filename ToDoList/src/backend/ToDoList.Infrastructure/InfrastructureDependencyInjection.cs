@@ -22,12 +22,16 @@ public static class InfrastructureDependencyInjection
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        AddDbContext(services, configuration);
         AddRepositories(services);
         AddTokens(services, configuration);
         AddEncripter(services);
-        AddFluentMigrator(services, configuration);
         AddLoggedUser(services);
+
+        if (configuration.IsUnitTestEnviroment())
+            return;
+
+        AddFluentMigrator(services, configuration);
+        AddDbContext(services, configuration);
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using CommonTestUtilities.Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,9 @@ namespace WebAPI.Test;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
+    private ToDoList.Domain.Entities.User _user = default!;
+    private string _password = null!;
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Test")
@@ -24,6 +28,25 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                     opts.UseInMemoryDatabase("InMemoryDbForTesting");
                     opts.UseInternalServiceProvider(provider);
                 });
+
+                using var scope = services.BuildServiceProvider().CreateScope();
+                var dbContext = scope.ServiceProvider.GetRequiredService<ToDoListDbContext>();
+
+                dbContext.Database.EnsureDeleted();
+
+                StartDataBase(dbContext);
             });
+    }
+
+    public ToDoList.Domain.Entities.User GetUser() => _user;
+    public string GetPassword() => _password;
+    public string GetEmail() => _user.Email;
+
+    private void StartDataBase(ToDoListDbContext dbContext)
+    {
+        (_user, _password) = UserBuilder.Build();
+
+        dbContext.Users.Add(_user);
+        dbContext.SaveChanges();
     }
 }

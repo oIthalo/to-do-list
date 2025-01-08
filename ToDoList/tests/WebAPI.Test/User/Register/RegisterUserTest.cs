@@ -4,7 +4,7 @@ using System.Net;
 using System.Text.Json;
 using ToDoList.Exception;
 
-namespace WebAPI.Test.Register;
+namespace WebAPI.Test.User.Register;
 
 public class RegisterUserTest : ToDoListClassFixture
 {

@@ -1,6 +1,7 @@
 ﻿using ToDoList.Domain.Enums;
 using ToDoList.Domain.Repositories;
 using ToDoList.Domain.Services.LoggedUser;
+using ToDoList.Exception;
 using ToDoList.Exception.ExceptionsBase;
 
 namespace ToDoList.Application.UseCases.TodoTask.ChangeStatus;
@@ -25,7 +26,7 @@ public class ChangeStatusUseCase : IChangeStatusUseCase
     {
         var user = await _loggedUser.User();
 
-        var task = await _todoTaskRepository.GetById(user, id) ?? throw new NotFoundException();
+        var task = await _todoTaskRepository.GetById(user, id) ?? throw new NotFoundException(MessagesException.TASK_NOT_FOUND);
 
         task.Status = status;
 

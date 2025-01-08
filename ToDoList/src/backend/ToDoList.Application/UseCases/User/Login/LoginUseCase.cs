@@ -1,19 +1,15 @@
-﻿using AutoMapper;
-using ToDoList.Communication.Requests;
+﻿using ToDoList.Communication.Requests;
 using ToDoList.Communication.Responses;
 using ToDoList.Domain.Repositories;
 using ToDoList.Domain.Security.Criptography;
 using ToDoList.Domain.Security.Tokens;
 using ToDoList.Exception.ExceptionsBase;
-using ToDoList.Infrastructure.DataAccess;
-using ToDoList.Infrastructure.Security.Tokens.Refresh.Generator;
 
 namespace ToDoList.Application.UseCases.Login.DoLogin;
 
 public class LoginUseCase : ILoginUseCase
 {
     private readonly IUserRepository _userRepository;
-    private readonly IMapper _mapper;
     private readonly IAccessTokenGenerator _accessTokenGenerator;
     private readonly IPasswordEncripter _passwordEncripter;
     private readonly IRefreshTokenGenerator _refreshTokenGenerator;
@@ -22,7 +18,6 @@ public class LoginUseCase : ILoginUseCase
 
     public LoginUseCase(
         IUserRepository userRepository,
-        IMapper mapper,
         IAccessTokenGenerator accessTokenGenerator,
         IPasswordEncripter passwordEncripter,
         IRefreshTokenGenerator refreshTokenGenerator,
@@ -30,7 +25,6 @@ public class LoginUseCase : ILoginUseCase
         IUnitOfWork unitOfWork)
     {
         _userRepository = userRepository;
-        _mapper = mapper;
         _accessTokenGenerator = accessTokenGenerator;
         _passwordEncripter = passwordEncripter;
         _refreshTokenGenerator = refreshTokenGenerator;

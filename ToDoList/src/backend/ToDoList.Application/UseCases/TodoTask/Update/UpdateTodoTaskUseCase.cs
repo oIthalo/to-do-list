@@ -2,6 +2,7 @@
 using ToDoList.Communication.Requests;
 using ToDoList.Domain.Repositories;
 using ToDoList.Domain.Services.LoggedUser;
+using ToDoList.Exception;
 using ToDoList.Exception.ExceptionsBase;
 
 namespace ToDoList.Application.UseCases.TodoTask.Update;
@@ -31,7 +32,7 @@ public class UpdateTodoTaskUseCase : IUpdateTodoTaskUseCase
 
         Validate(request);
 
-        var taskToUpdate = await _todoTaskRepository.GetById(user, id) ?? throw new NotFoundException(); ;
+        var taskToUpdate = await _todoTaskRepository.GetById(user, id) ?? throw new NotFoundException(MessagesException.TASK_NOT_FOUND);
         var task = _mapper.Map(request, taskToUpdate);
 
         _todoTaskRepository.Update(task);

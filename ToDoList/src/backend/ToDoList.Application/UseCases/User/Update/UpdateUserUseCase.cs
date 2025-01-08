@@ -1,6 +1,7 @@
 ﻿using ToDoList.Communication.Requests;
 using ToDoList.Domain.Repositories;
 using ToDoList.Domain.Services.LoggedUser;
+using ToDoList.Exception;
 using ToDoList.Exception.ExceptionsBase;
 
 namespace ToDoList.Application.UseCases.User.Update;

@@ -190,6 +190,3 @@ FakesAssemblies/
 
 /.sonarqube
 coverage.opencover.xml
-
-# Ignore appsettings.Development.json
-appsettings.Development.json

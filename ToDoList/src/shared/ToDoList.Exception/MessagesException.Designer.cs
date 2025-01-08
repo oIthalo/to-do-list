@@ -97,6 +97,15 @@ namespace ToDoList.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Already exist an active user with this email..
+        /// </summary>
+        public static string EXIST_USER {
+            get {
+                return ResourceManager.GetString("EXIST_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password is not valid..
         /// </summary>
         public static string INVALID_PASSWORD {
@@ -178,6 +187,15 @@ namespace ToDoList.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This task wasn&apos;t found..
+        /// </summary>
+        public static string TASK_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("TASK_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The title cannot be empty..
         /// </summary>
         public static string TITLE_EMPTY {
@@ -201,6 +219,15 @@ namespace ToDoList.Exception {
         public static string USER_NAME_EMPTY {
             get {
                 return ResourceManager.GetString("USER_NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User not found..
+        /// </summary>
+        public static string USER_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("USER_NOT_FOUND", resourceCulture);
             }
         }
         

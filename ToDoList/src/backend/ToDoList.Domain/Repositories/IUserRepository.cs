@@ -8,4 +8,5 @@ public interface IUserRepository
     Task<User?> GetByEmail(string email);
     Task<User?> GetByIdentifer(Guid identifier);
     void Update(User user);
+    Task<bool> ExistActiveUserWithEmail(string email);
 }

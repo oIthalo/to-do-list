@@ -65,7 +65,7 @@ public class UserController : ToDoListControllerBase
     }
 
 
-    [HttpPost]
+    [HttpPut]
     [Route("change-password")]
     [IsAuth]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

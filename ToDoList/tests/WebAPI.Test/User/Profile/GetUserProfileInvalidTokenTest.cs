@@ -1,26 +1,23 @@
-﻿using CommonTestUtilities.Requests;
-using CommonTestUtilities.Tokens;
+﻿using CommonTestUtilities.Tokens;
 using FluentAssertions;
 using System.Net;
 using System.Text.Json;
 using ToDoList.Exception;
 
-namespace WebAPI.Test.User.ChangePassword;
+namespace WebAPI.Test.User.Profile;
 
-public class ChangePasswordInvalidTokenTest : ToDoListClassFixture
+public class GetUserProfileInvalidTokenTest : ToDoListClassFixture
 {
-    private const string METHOD = "user/change-password";
+    private const string METHOD = "user/profile";
 
-    public ChangePasswordInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory)
+    public GetUserProfileInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory)
     {
     }
 
     [Fact]
     public async Task Error_No_Token()
     {
-        var request = PasswordChangeRequestBuilder.Build();
-
-        var response = await DoPut(METHOD, request);
+        var response = await DoGet(METHOD);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
 
@@ -33,10 +30,9 @@ public class ChangePasswordInvalidTokenTest : ToDoListClassFixture
     [Fact]
     public async Task Error_Invalid_User()
     {
-        var request = PasswordChangeRequestBuilder.Build();
         var token = AccessTokenGeneratorBuilder.Build().Generate(Guid.NewGuid());
 
-        var response = await DoPut(METHOD, request, token);
+        var response = await DoGet(METHOD, token);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
 

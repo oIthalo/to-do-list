@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 namespace WebAPI.Test;
@@ -10,7 +9,7 @@ public class ToDoListClassFixture : IClassFixture<CustomWebApplicationFactory>
 
     public ToDoListClassFixture(CustomWebApplicationFactory factory) => _httpClient = factory.CreateClient();
 
-    protected async Task<HttpResponseMessage> DoPost(string method, object request)
+    protected async Task<HttpResponseMessage> DoPost(string method, object request, string token = "")
     {
         return await _httpClient.PostAsJsonAsync(method, request);
     }
@@ -20,6 +19,13 @@ public class ToDoListClassFixture : IClassFixture<CustomWebApplicationFactory>
         AuthorizeRequest(token);
 
         return await _httpClient.PutAsJsonAsync(method, request);
+    }
+
+    protected async Task<HttpResponseMessage> DoGet(string method, string token = "")    
+    {
+        AuthorizeRequest(token);
+
+        return await _httpClient.GetAsync(method);
     }
 
     private void AuthorizeRequest(string token)

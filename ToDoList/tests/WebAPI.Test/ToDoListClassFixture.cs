@@ -11,6 +11,8 @@ public class ToDoListClassFixture : IClassFixture<CustomWebApplicationFactory>
 
     protected async Task<HttpResponseMessage> DoPost(string method, object request, string token = "")
     {
+        AuthorizeRequest(token);
+
         return await _httpClient.PostAsJsonAsync(method, request);
     }
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using ToDoList.Domain.Entities;
 using ToDoList.Infrastructure.DataAccess;
 
 namespace WebAPI.Test;
@@ -11,6 +12,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     private ToDoList.Domain.Entities.User _user = default!;
     private string _password = null!;
+    private RefreshToken _refreshToken = default!;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -42,12 +44,16 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetPassword() => _password;
     public string GetEmail() => _user.Email;
     public Guid GetUserIdentifier() => _user.Identifier;
+    public RefreshToken GetRefreshToken() => _refreshToken;
 
     private void StartDataBase(ToDoListDbContext dbContext)
     {
         (_user, _password) = UserBuilder.Build();
+        _refreshToken = RefreshTokenBuilder.Build(_user);
 
+        dbContext.RefreshTokens.Add(_refreshToken);
         dbContext.Users.Add(_user);
+
         dbContext.SaveChanges();
     }
 }

@@ -23,7 +23,7 @@ public class ToDoListClassFixture : IClassFixture<CustomWebApplicationFactory>
         return await _httpClient.PutAsJsonAsync(method, request);
     }
 
-    protected async Task<HttpResponseMessage> DoPutWithId(string method, object id, object request, string token = "")
+    protected async Task<HttpResponseMessage> DoPutWithId(string method, string id, object request, string token = "")
     {
         AuthorizeRequest(token);
 
@@ -35,6 +35,13 @@ public class ToDoListClassFixture : IClassFixture<CustomWebApplicationFactory>
         AuthorizeRequest(token);
 
         return await _httpClient.GetAsync(method);
+    }
+
+    protected async Task<HttpResponseMessage> DoDelete(string method, string id, string token = "")
+    {
+        AuthorizeRequest(token);
+
+        return await _httpClient.DeleteAsync($"{method}/{id}");
     }
 
     private void AuthorizeRequest(string token)

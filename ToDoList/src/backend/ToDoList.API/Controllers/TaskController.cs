@@ -48,7 +48,6 @@ public class TaskController : ToDoListControllerBase
     [Route("get-all")]
     [IsAuth]
     [ProducesResponseType(typeof(TaskResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetAllUserTasks(

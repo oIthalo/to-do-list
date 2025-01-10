@@ -13,6 +13,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private ToDoList.Domain.Entities.User _user = default!;
     private string _password = null!;
     private RefreshToken _refreshToken = default!;
+    private ToDoList.Domain.Entities.TodoTask _todoTask = default!;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -45,14 +46,17 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetEmail() => _user.Email;
     public Guid GetUserIdentifier() => _user.Identifier;
     public RefreshToken GetRefreshToken() => _refreshToken;
+    public long GetTaskId() => _todoTask.Id;
 
     private void StartDataBase(ToDoListDbContext dbContext)
     {
         (_user, _password) = UserBuilder.Build();
         _refreshToken = RefreshTokenBuilder.Build(_user);
+        _todoTask = TodoTaskBuilder.Build(_user);
 
         dbContext.RefreshTokens.Add(_refreshToken);
         dbContext.Users.Add(_user);
+        dbContext.Tasks.Add(_todoTask);
 
         dbContext.SaveChanges();
     }

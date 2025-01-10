@@ -1,20 +1,19 @@
 ﻿using CommonTestUtilities.IdEncryption;
-using CommonTestUtilities.Requests;
 using CommonTestUtilities.Tokens;
 using FluentAssertions;
 using System.Net;
 using System.Text.Json;
 using ToDoList.Exception;
 
-namespace WebAPI.Test.TodoTask.Udate;
+namespace WebAPI.Test.TodoTask.GetById;
 
-public class UpdateTaskInvalidTokenTest : ToDoListClassFixture
+public class GetTaskByIdInvalidTokenTest : ToDoListClassFixture
 {
-    private const string METHOD = "task/update";
+    private const string METHOD = "task/get";
 
     private readonly long _taskId;
 
-    public UpdateTaskInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory)
+    public GetTaskByIdInvalidTokenTest(CustomWebApplicationFactory factory) : base(factory)
     {
         _taskId = factory.GetTaskId();
     }
@@ -22,11 +21,9 @@ public class UpdateTaskInvalidTokenTest : ToDoListClassFixture
     [Fact]
     public async Task Error_No_Token()
     {
-        var request = UpdateTaskRequestBuilder.Build();
-
         var id = IdEncripterBuilder.Build().Encode(_taskId);
 
-        var response = await DoPut(METHOD, request, id:id);
+        var response = await DoGet(METHOD, id:id);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
 
@@ -39,12 +36,11 @@ public class UpdateTaskInvalidTokenTest : ToDoListClassFixture
     [Fact]
     public async Task Error_Invalid_User()
     {
-        var request = UpdateTaskRequestBuilder.Build();
         var token = AccessTokenGeneratorBuilder.Build().Generate(Guid.NewGuid());
 
         var id = IdEncripterBuilder.Build().Encode(_taskId);
 
-        var response = await DoPut(METHOD, request, token:token, id: id);
+        var response = await DoGet(METHOD, token, id: id);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
 

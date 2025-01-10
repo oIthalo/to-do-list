@@ -26,7 +26,7 @@ public class UpdateTaskTest : ToDoListClassFixture
         var token = AccessTokenGeneratorBuilder.Build().Generate(_userIdentifier);
         var id = IdEncripterBuilder.Build().Encode(_taskId);
 
-        var response = await DoPutWithId(METHOD, id, request, token);
+        var response = await DoPut(METHOD, request, token, id);
 
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }

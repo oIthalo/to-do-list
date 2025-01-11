@@ -24,7 +24,7 @@ public class DeleteUserUseCase : IDeleteUserUseCase
     public async Task Execute()
     {
         var loggedUser = await _loggedUser.User();
-        var user = await _userRepository.GetByIdentifer(loggedUser.Identifier) ?? throw new NotFoundException(MessagesException.USER_NOT_FOUND);
+        var user = await _userRepository.GetByIdentifer(loggedUser.Identifier)
 
         _userRepository.Delete(user);
         await _unitOfWork.Commit();

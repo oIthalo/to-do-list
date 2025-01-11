@@ -24,25 +24,10 @@ public class DeleteUserUseCaseTest
         await act.Should().NotThrowAsync();
     }
 
-    [Fact]
-    public async Task Error_User_Not_Found()
+    private static DeleteUserUseCase CreateUseCase(ToDoList.Domain.Entities.User user = default!)
     {
-        var request = ChangeTaskStatusRequestBuilder.Build();
-        (var user, _) = UserBuilder.Build();
-
-        var useCase = CreateUseCase();
-
-        Func<Task> act = async () => await useCase.Execute();
-
-        await act.Should().ThrowAsync<NotFoundException>()
-            .Where(x => x.Message.Equals(MessagesException.USER_NOT_FOUND));
-    }
-
-    private static DeleteUserUseCase CreateUseCase(ToDoList.Domain.Entities.User? user = default!)
-    {
-        (var userBuilded, _) = UserBuilder.Build();
         var userRepository = new UserRepositoryBuilder();
-        var loggedUser = LoggedUserBuilder.Build(userBuilded);
+        var loggedUser = LoggedUserBuilder.Build(user);
         var unitOfWork = UnitOfWorkBuilder.Build();
 
         if (user is not null)

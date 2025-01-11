@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToDoList.API.Attributes;
 using ToDoList.Application.UseCases.Login.DoLogin;
+using ToDoList.Application.UseCases.User.Delete;
 using ToDoList.Application.UseCases.User.Password.Change;
 using ToDoList.Application.UseCases.User.Profile;
 using ToDoList.Application.UseCases.User.Register;
@@ -76,6 +77,18 @@ public class UserController : ToDoListControllerBase
         [FromBody] PasswordChangeRequest request)
     {
         await useCase.Execute(request);
+        return NoContent();
+    }
+
+    [HttpDelete]
+    [Route("delete")]
+    [IsAuth]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Delete(
+        [FromServices] IDeleteUserUseCase useCase)
+    {
+        await useCase.Execute();
         return NoContent();
     }
 }

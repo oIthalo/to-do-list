@@ -187,6 +187,15 @@ namespace ToDoList.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The status is not valid..
+        /// </summary>
+        public static string STATUS_INVALID {
+            get {
+                return ResourceManager.GetString("STATUS_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This task wasn&apos;t found..
         /// </summary>
         public static string TASK_NOT_FOUND {

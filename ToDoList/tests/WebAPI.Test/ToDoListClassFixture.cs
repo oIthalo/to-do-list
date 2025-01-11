@@ -30,7 +30,7 @@ public class ToDoListClassFixture : IClassFixture<CustomWebApplicationFactory>
         return await _httpClient.GetAsync($"{method}/{id}");
     }
 
-    protected async Task<HttpResponseMessage> DoDelete(string method, string id, string token = "")
+    protected async Task<HttpResponseMessage> DoDelete(string method, string id = "", string token = "")
     {
         AuthorizeRequest(token);
 

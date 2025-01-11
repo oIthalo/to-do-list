@@ -9,4 +9,5 @@ public interface IUserRepository
     Task<User?> GetByIdentifer(Guid identifier);
     void Update(User user);
     Task<bool> ExistActiveUserWithEmail(string email);
+    void Delete(User user);
 }

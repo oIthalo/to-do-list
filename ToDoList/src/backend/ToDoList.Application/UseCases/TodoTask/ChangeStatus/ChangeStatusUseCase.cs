@@ -25,6 +25,8 @@ public class ChangeStatusUseCase : IChangeStatusUseCase
 
     public async Task Execute(long id, ChangeTaskStatusRequest request)
     {
+        Validate(request);
+
         var user = await _loggedUser.User();
 
         var task = await _todoTaskRepository.GetById(user, id) ?? throw new NotFoundException(MessagesException.TASK_NOT_FOUND);
@@ -33,5 +35,13 @@ public class ChangeStatusUseCase : IChangeStatusUseCase
 
         _todoTaskRepository.Update(task);
         await _unitOfWork.Commit();
+    }
+
+    private static void Validate(ChangeTaskStatusRequest request)
+    {
+        var result = new ChangeStatusValidator().Validate(request);
+
+        if (!result.IsValid)
+            throw new ErrorOnValidationException(result.Errors.Select(x => x.ErrorMessage).ToList());
     }
 }

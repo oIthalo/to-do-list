@@ -21,12 +21,15 @@ public class GetAllUserTasksUseCase : IGetAllUserTasksUseCase
         _loggedUser = loggedUser;
     }
 
-    public async Task<IList<TaskResponse>> Execute()
+    public async Task<TasksResponse> Execute()
     {
         var user = await _loggedUser.User();
 
         var tasks = await _todoTaskRepository.GetAllUserTasks(user);
 
-        return _mapper.Map<IList<TaskResponse>>(tasks);
+        return new TasksResponse()
+        {
+            Tasks = _mapper.Map<List<TaskResponse>>(tasks)
+        };
     }
 }

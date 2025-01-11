@@ -20,7 +20,7 @@ public class GetAllUserTasksUseCaseTest
         var result = await useCase.Execute();
 
         result.Should().NotBeNull();
-        result.First().Should().BeOfType<TaskResponse>();
+        result.Should().BeOfType<TasksResponse>();
     }
 
     private static GetAllUserTasksUseCase CreateUseCase(ToDoList.Domain.Entities.User user)

@@ -37,7 +37,7 @@ public class UserController : ToDoListControllerBase
         return Ok(result);
     }
 
-    [HttpPost]
+    [HttpPut]
     [Route("update")]
     [IsAuth]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -65,7 +65,7 @@ public class UserController : ToDoListControllerBase
     }
 
 
-    [HttpPost]
+    [HttpPut]
     [Route("change-password")]
     [IsAuth]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

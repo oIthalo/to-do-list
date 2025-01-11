@@ -44,7 +44,7 @@ Some of the key technologies used to build this project include
     dotnet restore
 ```
 **3. Configuring appsettings** Fill in the information in the file bellow:
-```json
+```bash
     appsetings.Delevopment.json
 ```
 **4. Run the project.** Open the localhost:

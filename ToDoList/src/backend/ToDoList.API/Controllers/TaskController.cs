@@ -98,9 +98,9 @@ public class TaskController : ToDoListControllerBase
     public async Task<IActionResult> ChangeStatus(
         [FromServices] IChangeStatusUseCase useCase,
         [FromRoute][ModelBinder(typeof(ToDoListIdBinder))] long id,
-        [FromBody] EStatusTask status)
+        [FromBody] ChangeTaskStatusRequest request)
     {
-        await useCase.Execute(id, status);
+        await useCase.Execute(id, request);
         return NoContent();
     }
 }

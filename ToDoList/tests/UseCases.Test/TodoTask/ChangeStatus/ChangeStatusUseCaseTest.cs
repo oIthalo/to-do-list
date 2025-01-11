@@ -8,6 +8,7 @@ using ToDoList.Application.UseCases.TodoTask.Update;
 using ToDoList.Exception.ExceptionsBase;
 using ToDoList.Exception;
 using ToDoList.Application.UseCases.TodoTask.ChangeStatus;
+using ToDoList.Domain.Enums;
 
 namespace UseCases.Test.TodoTask.ChangeStatus;
 
@@ -18,10 +19,11 @@ public class ChangeStatusUseCaseTest
     {
         (var user, _) = UserBuilder.Build();
         var todoTask = TodoTaskBuilder.Build(user);
+        var request = ChangeTaskStatusRequestBuilder.Build();
 
         var useCase = CreateUseCase(user, todoTask);
 
-        Func<Task> act = async () => await useCase.Execute(todoTask.Id, todoTask.Status);
+        Func<Task> act = async () => await useCase.Execute(todoTask.Id, request);
 
         await act.Should().NotThrowAsync();
     }
@@ -31,10 +33,11 @@ public class ChangeStatusUseCaseTest
     {
         (var user, _) = UserBuilder.Build();
         var todoTask = TodoTaskBuilder.Build(user);
+        var request = ChangeTaskStatusRequestBuilder.Build();
 
         var useCase = CreateUseCase(user);
 
-        Func<Task> act = async () => await useCase.Execute(todoTask.Id, todoTask.Status);
+        Func<Task> act = async () => await useCase.Execute(todoTask.Id, request);
 
         await act.Should().ThrowAsync<NotFoundException>()
             .Where(x => x.Message.Equals(MessagesException.TASK_NOT_FOUND));

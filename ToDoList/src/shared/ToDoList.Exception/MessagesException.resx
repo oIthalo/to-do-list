@@ -159,6 +159,9 @@
   <data name="SHORT_PASSWORD" xml:space="preserve">
     <value>The password must be 8 or more characters long.</value>
   </data>
+  <data name="STATUS_INVALID" xml:space="preserve">
+    <value>The status is not valid.</value>
+  </data>
   <data name="TASK_NOT_FOUND" xml:space="preserve">
     <value>This task wasn't found.</value>
   </data>

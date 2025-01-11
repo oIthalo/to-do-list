@@ -32,5 +32,7 @@ public class AutoMapping : Profile
 
         CreateMap<TodoTask, TaskResponse>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => _idEncoder.Encode(src.Id)));
+
+        CreateMap<TodoTask, TasksResponse>();
     }
 }

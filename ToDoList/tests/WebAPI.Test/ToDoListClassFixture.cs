@@ -16,25 +16,18 @@ public class ToDoListClassFixture : IClassFixture<CustomWebApplicationFactory>
         return await _httpClient.PostAsJsonAsync(method, request);
     }
 
-    protected async Task<HttpResponseMessage> DoPut(string method, object request, string token = "")
-    {
-        AuthorizeRequest(token);
-
-        return await _httpClient.PutAsJsonAsync(method, request);
-    }
-
-    protected async Task<HttpResponseMessage> DoPutWithId(string method, string id, object request, string token = "")
+    protected async Task<HttpResponseMessage> DoPut(string method, object request, string token = "", string id = "")
     {
         AuthorizeRequest(token);
 
         return await _httpClient.PutAsJsonAsync($"{method}/{id}", request);
     }
 
-    protected async Task<HttpResponseMessage> DoGet(string method, string token = "")    
+    protected async Task<HttpResponseMessage> DoGet(string method, string token = "", string id = "")    
     {
         AuthorizeRequest(token);
 
-        return await _httpClient.GetAsync(method);
+        return await _httpClient.GetAsync($"{method}/{id}");
     }
 
     protected async Task<HttpResponseMessage> DoDelete(string method, string id, string token = "")

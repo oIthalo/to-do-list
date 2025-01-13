@@ -37,7 +37,7 @@ Some of the key technologies used to build this project include
 ### **Usage instructions**:
 **1. Enter the project.** Navigate into the project directory to access all the project files:
 ```bash
-    cd todolist
+    cd t0-do-list
 ```
 **2. Restore the packages.** Restore all the necessary NuGet packages that the project depends on:
 ```

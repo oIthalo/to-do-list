@@ -12,6 +12,8 @@ public class ExceptionFilter : IExceptionFilter
     {
         if (context.Exception is ToDoListException toDoListException)
             HandleProjectException(toDoListException, context);
+        else
+            ThrowExceptionUnknown(context);
 
     }
 

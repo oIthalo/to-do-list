@@ -11,9 +11,16 @@ import { Task } from '../task';
 })
 export class TodoListComponent {
   query: string = ""
-  @Input() tasks: Task[] = []
+  select: string = ""
 
+  @Input() tasks: Task[] = []
   @Output() eventQuery = new EventEmitter<{ query: string }>()
+  @Output() eventSelect = new EventEmitter<{ select: string }>()
+
+  onSelect(select: string) {
+    this.select = select
+    this.eventSelect.emit({ select: this.select })
+  }
 
   onInput(query: string) {
     this.query = query

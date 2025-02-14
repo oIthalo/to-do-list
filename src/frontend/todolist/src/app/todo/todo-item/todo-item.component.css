@@ -10,7 +10,6 @@
     width: 100%;
     min-height: 80px;
     height: auto;
-    background-color: var(--cor-de-fundo-tasks-inputs);
     list-style-type: none;
     padding: .1em .5em;
     border-radius: 8px;
@@ -19,6 +18,19 @@
     display: grid;
     grid-template-columns: 75% 25%;
     gap: 10px;
+}
+
+.todo-item.done {
+    background-color: var(--cor-fundo-task-done);
+}
+
+.todo {
+    background-color: var(--cor-de-fundo-tasks-inputs);
+}
+
+.done {
+    text-decoration: line-through;
+    font-style: italic;
 }
 
 h2 {

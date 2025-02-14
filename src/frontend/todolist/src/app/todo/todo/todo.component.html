@@ -1,4 +1,4 @@
 <div class="container">
      <app-todo-create (todoEvent)="onCreateTask($event)"></app-todo-create>
-     <app-todo-list [tasks]="tasks" (eventQuery)="onDigitQuery($event)"></app-todo-list>
+     <app-todo-list [tasks]="tasks" (eventQuery)="onDigitQuery($event)" (eventSelect)="onChangeSelect($event)"></app-todo-list>
 </div>

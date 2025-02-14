@@ -5,26 +5,22 @@ import { Task } from './task';
   providedIn: 'root'
 })
 export class TodoService {
+  private task: Task = { id: "", title: "", description: "", status: 0 }
 
   private tasks: Task[] = [
-    { title: "Estudar TypeScript", description: "Revisar conceitos básicos e avançados." },
-    { title: "Praticar JavaScript", description: "Criar pequenos projetos para reforçar o aprendizado." },
-    { title: "Ler sobre Node.js", description: "Entender como funciona o ambiente de execução." },
-    { title: "Finalizar projeto React", description: "Implementar a última funcionalidade pendente." },
-    { title: "Aprender sobre Express.js", description: "Criar uma API simples com Express." },
-    { title: "Refatorar código do portfólio", description: "Melhorar a estrutura e otimizar o CSS." },
-    { title: "Assistir tutorial de Docker", description: "Entender o funcionamento de containers." },
-    { title: "Configurar banco de dados", description: "Criar tabelas e relacionamentos no PostgreSQL." },
-    { title: "Revisar conceitos de CSS", description: "Praticar Flexbox e Grid." },
-    { title: "Criar um mini projeto com Vue.js", description: "Fazer uma pequena aplicação para testar." },
-    { title: "Melhorar desempenho do site", description: "Otimizar imagens e reduzir tempo de carregamento." },
-    { title: "Aprender sobre Next.js", description: "Estudar SSR e SSG." },
-    { title: "Testar uma API REST", description: "Fazer requisições com Postman e entender os métodos HTTP." },
-    { title: "Criar uma função utilitária", description: "Fazer uma função genérica para manipular arrays." },
-    { title: "Ler sobre boas práticas de código", description: "Estudar Clean Code e SOLID." }
+    { id: "NWV", title: "Estudar TypeScript", description: "Revisar conceitos básicos e avançados.", status: 0 },
+    { id: "XJL", title: "Praticar React", description: "Criar um projeto com hooks e context API.", status: 1 },
+    { id: "BQT", title: "Revisar JavaScript", description: "Estudar closures, promises e async/await.", status: 0 },
+    { id: "MZP", title: "Aprender Node.js", description: "Explorar Express e conexão com banco de dados.", status: 1 },
+    { id: "KRD", title: "Estudar Banco de Dados", description: "Revisar SQL e aprender NoSQL.", status: 0 }
   ];
 
   getTasks() {
+    return this.tasks
+  }
+
+  deleteTask(id: string){
+    this.tasks = this.tasks.filter(x => x.id.toLowerCase() !== id.toLowerCase())
     return this.tasks
   }
 
@@ -32,13 +28,35 @@ export class TodoService {
     this.tasks.push(task)
   }
 
-  filterByQuery(query: string) {
+  editTask(id: string, title: string, description: string){
+    const foundTask = this.tasks.find(x => x.id.toLowerCase() === id.toLowerCase())
+    if (foundTask){
+      this.task = foundTask
+    }
+
+    this.task.title = title
+    this.task.description = description
+  }
+
+  filterByQuery(query: string) {  
     if (!query.trim()) {
-      return this.tasks; 
+      return this.tasks;
     }
 
     return this.tasks.filter(x =>
       x.title.toLowerCase().includes(query.toLowerCase()) ||
       x.description.toLowerCase().includes(query.toLowerCase()))
+  }
+
+  filterBySelect(select: string){
+    if (select === "all"){
+      return this.tasks
+    } else if (select === "todo"){
+      return this.tasks.filter(x => x.status !== 1)
+    } else if (select === "done"){
+      return this.tasks.filter(x => x.status !== 0)
+    }
+    
+    return this.tasks
   }
 }

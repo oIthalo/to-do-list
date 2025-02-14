@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TodoCreateComponent } from "../todo-create/todo-create.component";
 import { TodoListComponent } from "../todo-list/todo-list.component";
 import { Task } from '../task';
@@ -12,9 +12,10 @@ import { TodoService } from '../todo.service';
 })
 
 export class TodoComponent implements OnInit {
-  task: Task = { title: "", description: "" }
+  task: Task = { id: "", title: "", description: "", status: 0 }
   tasks: Task[] = []
   query: string = ""
+  select: string = ""
 
   constructor(private _service: TodoService) { }
 
@@ -23,24 +24,28 @@ export class TodoComponent implements OnInit {
   }
 
   onCreateTask(event: Task) {
+    this.task.id = event.id
     this.task.title = event.title
     this.task.description = event.description
+    this.task.status = event.status
 
     this.addTask()
   }
 
-  onDigitQuery(event: { query: string }) { 
-    this.query = event.query 
-    this.filterByQuery()
+  onDigitQuery(event: { query: string }) {
+    this.query = event.query
+
+    this.tasks = this._service.filterByQuery(this.query)
   }
 
-  addTask() { 
-    this._service.addTask(this.task) 
-    this.tasks = this._service.getTasks();
-    this.filterByQuery();
+  onChangeSelect(event: { select: string }) {
+    this.select = event.select
+
+    this.tasks = this._service.filterBySelect(this.select)
   }
 
-  filterByQuery(){
+  addTask() {
+    this._service.addTask(this.task)
     this.tasks = this._service.filterByQuery(this.query)
   }
 }

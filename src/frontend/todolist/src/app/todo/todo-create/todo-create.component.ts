@@ -32,10 +32,7 @@ export class TodoCreateComponent {
 
   matcher = new MyErrorStateMatcher();
 
-  task: Task = {
-    title: "",
-    description: ""
-  }
+  task: Task = { id: "", title: "", description: "", status: 0 }
 
   @Output() todoEvent = new EventEmitter<Task>()
 

@@ -1,15 +1,26 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroupDirective, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
 @Component({
   selector: 'app-register-form',
   imports: [
-    MatInputModule,
-    RouterLink,
-    FormsModule
+    FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        RouterLink
   ],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.css'
@@ -19,6 +30,12 @@ export class RegisterFormComponent {
   username: string = ""
   email: string = ""
   password: string = ""
+
+  usernameFormControl = new FormControl('', [Validators.required])
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  passwordFormControl = new FormControl('', [Validators.required]);
+
+  matcher = new MyErrorStateMatcher();
 
   @Output() registerEvent = new EventEmitter<{ username: string, email: string, password: string }>()
 

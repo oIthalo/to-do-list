@@ -1,0 +1,22 @@
+<h1>Login</h1>
+<div class="container-form">
+    <form class="example-form" (ngSubmit)="onSubmit($event)">
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput placeholder="Ex. mail@email.com" #emailInput (input)="getEmailInput(emailInput.value)">
+        </mat-form-field>
+      
+        <mat-form-field class="example-full-width">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput placeholder="Ex. Senha123!" #passwordInput (input)="getPasswordInput(passwordInput.value)">
+        </mat-form-field>
+      
+        <div class="btn">
+          <button>Login</button> 
+        </div>
+      </form>
+</div>
+<div class="register">
+    <a>Ainda não tem uma conta?</a>
+    <a class="click-to-register" [routerLink]="['/register']">CLIQUE AQUI PARA SE REGISTRAR</a>
+</div>

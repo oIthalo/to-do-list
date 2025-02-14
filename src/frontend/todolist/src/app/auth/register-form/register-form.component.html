@@ -1,0 +1,25 @@
+<h1>Registrar</h1>
+<div class="container-form">
+    <form class="example-form" (ngSubmit)="onSubmit($event)">
+        <mat-form-field class="example-full-width">
+            <mat-label>Username</mat-label>
+            <input type="text" matInput placeholder="Ex. Nome123" #nameInput (input)="saveInputName(nameInput.value)">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput placeholder="Ex. mail@email.com" #emailInput (input)="saveInputEmail(emailInput.value)">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput placeholder="Ex. Senha123!" #passwordInput (input)="saveInputPassword(passwordInput.value)">
+        </mat-form-field>
+        <div class="btn">
+            <button> Cadastrar </button>
+        </div>
+    </form>
+</div>
+<div class="register">
+    <a [routerLink]="['/login']">JÁ TENHO UMA CONTA</a>
+</div>

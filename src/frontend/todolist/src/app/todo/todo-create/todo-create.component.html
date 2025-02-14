@@ -1,0 +1,21 @@
+<h1>Todo List</h1>
+<form class="example-form" (ngSubmit)="onSubmit($event)">
+  <mat-form-field class="example-full-width" hideRequiredMarker="true">
+    <mat-label>Título</mat-label>
+    <input type="text" matInput [formControl]="titleFormControl" [errorStateMatcher]="matcher" placeholder="Digite o título"
+      #inputTitle (input)="getInputTitle(inputTitle.value)">
+    @if (titleFormControl.hasError('required')) { <mat-error>O título é <strong>obrigatório</strong></mat-error> }
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" hideRequiredMarker="true">
+    <mat-label>Descrição</mat-label>
+    <input type="text" matInput [formControl]="descriptionFormControl" [errorStateMatcher]="matcher" placeholder="Digite a descrição"
+    #inputDescription (input)="getInputDescription(inputDescription.value)">
+    @if (descriptionFormControl.hasError('required')) { <mat-error>A descrição é
+      <strong>obrigatória</strong></mat-error> }
+  </mat-form-field>
+
+  <div class="btn">
+    <button>Adicionar</button>
+  </div>
+</form>

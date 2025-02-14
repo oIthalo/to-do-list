@@ -1,0 +1,4 @@
+<div class="container-todo">
+    <input placeholder="Pesquisar tarefa" type="search" #inputQuery (input)="onInput(inputQuery.value)">
+    <app-todo-item [tasks]="tasks"></app-todo-item>
+</div>

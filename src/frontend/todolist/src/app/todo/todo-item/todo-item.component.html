@@ -1,0 +1,13 @@
+<ul class="todo-list" >
+    <li class="todo-item" *ngFor="let task of tasks">
+        <div class="content">
+            <h2>{{ task.title }}</h2>
+            <p>{{ task.description }}</p>
+        </div>
+        <div class="btns">
+            <button><i class="bi bi-check-circle"></i></button>
+            <button><i class="bi bi-pencil-square"></i></button>
+            <button><i class="bi bi-trash3"></i></button>
+        </div>
+    </li>
+</ul>

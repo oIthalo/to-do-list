@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --cor-fundo-principal: #072c41;
+    --cor-fundo-tela-login: #1752758f;
+    --cor-fundo-secundaria: #d7d8dd;
+    --cor-de-fundo-tasks-inputs: #dcdde6;
+
+    --montserrat: "Montserrat", serif;
+    --roboto: "Roboto", serif;
+    --jetbrains: "JetBrains Mono", serif;
+}
+
+body {
+    background-color: var(--cor-fundo-principal);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}

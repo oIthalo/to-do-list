@@ -6,21 +6,80 @@ import { Task } from './task';
 })
 export class TodoService {
   private task: Task = { id: "", title: "", description: "", status: 0 }
-
   private tasks: Task[] = [
-    { id: "NWV", title: "Estudar TypeScript", description: "Revisar conceitos básicos e avançados.", status: 0 },
-    { id: "XJL", title: "Praticar React", description: "Criar um projeto com hooks e context API.", status: 1 },
-    { id: "BQT", title: "Revisar JavaScript", description: "Estudar closures, promises e async/await.", status: 0 },
-    { id: "MZP", title: "Aprender Node.js", description: "Explorar Express e conexão com banco de dados.", status: 1 },
-    { id: "KRD", title: "Estudar Banco de Dados", description: "Revisar SQL e aprender NoSQL.", status: 0 }
+    {
+      id: "T01",
+      title: "Fazer compras",
+      description: "Comprar ingredientes para a receita de bolo.",
+      status: 0
+    },
+    {
+      id: "T02",
+      title: "Estudar JavaScript",
+      description: "Revisar funções e objetos em JavaScript.",
+      status: 1
+    },
+    {
+      id: "T03",
+      title: "Limpar a casa",
+      description: "Fazer a limpeza geral no apartamento.",
+      status: 0
+    },
+    {
+      id: "T04",
+      title: "Ler livro",
+      description: "Ler o capítulo 5 do livro sobre desenvolvimento web.",
+      status: 1
+    },
+    {
+      id: "T05",
+      title: "Exercícios físicos",
+      description: "Fazer caminhada de 30 minutos no parque.",
+      status: 0
+    },
+    {
+      id: "T06",
+      title: "Organizar escritório",
+      description: "Arrumar a mesa e organizar os materiais de trabalho.",
+      status: 0
+    },
+    {
+      id: "T07",
+      title: "Revisar código",
+      description: "Revisar o código do projeto de ToDo List.",
+      status: 1
+    },
+    {
+      id: "T08",
+      title: "Assistir tutorial",
+      description: "Assistir tutorial sobre React Hooks.",
+      status: 0
+    }
   ];
+
+  constructor() { }
 
   getTasks() {
     return this.tasks
   }
 
-  deleteTask(id: string){
-    this.tasks = this.tasks.filter(x => x.id.toLowerCase() !== id.toLowerCase())
+  filterByQuery(query: string) {
+    if (!query.trim()) {
+      return this.tasks;
+    }
+
+    return this.tasks.filter(x => 
+      x.title.toLowerCase().includes(query.toLowerCase()) ||
+      x.description.toLowerCase().includes(query.toLowerCase())
+    )
+  }
+
+  filterBySelect(select: string) {
+    if (select === "todo") {
+      return this.tasks.filter(x => x.status === 0)
+    } else if (select === "done") {
+      return this.tasks.filter(x => x.status === 1)
+    }
     return this.tasks
   }
 
@@ -28,9 +87,14 @@ export class TodoService {
     this.tasks.push(task)
   }
 
-  editTask(id: string, title: string, description: string){
+  getTaskById(id: string) {
+    let foundTask = this.tasks.find(x => x.id.toLowerCase() === id.toLowerCase())
+    return foundTask
+  }
+
+  editTask(id: string, title: string, description: string) {
     const foundTask = this.tasks.find(x => x.id.toLowerCase() === id.toLowerCase())
-    if (foundTask){
+    if (foundTask) {
       this.task = foundTask
     }
 
@@ -38,25 +102,8 @@ export class TodoService {
     this.task.description = description
   }
 
-  filterByQuery(query: string) {  
-    if (!query.trim()) {
-      return this.tasks;
-    }
-
-    return this.tasks.filter(x =>
-      x.title.toLowerCase().includes(query.toLowerCase()) ||
-      x.description.toLowerCase().includes(query.toLowerCase()))
-  }
-
-  filterBySelect(select: string){
-    if (select === "all"){
-      return this.tasks
-    } else if (select === "todo"){
-      return this.tasks.filter(x => x.status !== 1)
-    } else if (select === "done"){
-      return this.tasks.filter(x => x.status !== 0)
-    }
-    
+  deleteTask(id: string){
+    this.tasks = this.tasks.filter(x => x.id.toLowerCase() !== id.toLowerCase())
     return this.tasks
   }
 }

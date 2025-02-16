@@ -1,14 +1,44 @@
-<div class="container-todo">
-    <div class="filter">
-        <input placeholder="Pesquisar tarefa" type="search" #inputQuery (input)="onInput(inputQuery.value)">
-        <div class="custom-select">
-            <select #selectValue (change)="onSelect(selectValue.value)">
-                <option value="all">Todas</option>
-                <option value="todo">A fazer</option>
-                <option value="done">Feitas</option>
-            </select>
-            <i class="bi bi-chevron-down"></i>
+<header class="header">
+    <h1>Todo List</h1>
+</header>
+<section class="container-todo-list">
+    <div class="container-content">
+        <div class="container-filters">
+            <div class="form-group field">
+                <input type="text" class="form-field" placeholder="Pesquise a sua tarefa" required [(ngModel)]="query" (input)="filterByQuery()">
+                <label for="search-task" class="form-label">Pesquisar tarefa</label>
+                <div class="select-wrapper">
+                    <select class="filter-select" (change)="onChangeSelect($event)">
+                        <option value="all">Todas</option>
+                        <option value="todo">A fazer</option>
+                        <option value="done">Feitas</option>
+                    </select>
+                    <i class="bi bi-caret-down-fill"></i>
+                </div>
+            </div>
         </div>
+        <ul class="todo-list" *ngFor="let task of tasks">
+            <li class="todo-item" [class.done]="task.status === 1">
+                <input class="input-checkbox" type="checkbox" (click)="toggleStatusOnClick(task)" [checked]="toggleChecked(task)">
+
+                <div class="content">
+                    <div class="content-writed">
+                        <h2>{{ task.title }}</h2>
+                        <p>{{ task.description }}</p>
+                    </div>
+
+                    <div class="buttons">
+                        <button (click)="editOnClick(task.id)"><i class="bi bi-pencil-square"></i></button>
+                        <button (click)="onDeleteTask(task.id)"><i class="bi bi-trash3"></i></button>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
-    <app-todo-item [tasks]="tasks" ></app-todo-item>
-</div>
+    <div class="container-add">
+        <button (click)="addOnClick()" class="btn-add">+</button>
+        <label for="add-button">Adicionar</label>
+    </div>
+</section>
+
+<router-outlet></router-outlet>

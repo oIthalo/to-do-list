@@ -1,6 +1,201 @@
-.container-register-form {
+.container-login {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ========== Left part ========== */
+.left-part {
+    width: 43%;
+    height: 100%;
+    background: var(--background-auth);
+    background: var(--gradient-auth);
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    padding-top: 380px;
+}
+
+.left-part h2 {
+    font-family: var(--jetbrains);
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--main-white-color-font);
+    text-shadow: 1px 1px 0px #0000001f;
+    padding-bottom: 50px;
+}
+
+.left-part p {
+    font-family: var(--roboto);
+    font-size: 14px;
+    font-weight: 400;
+    color: #b3b3b3;
+    padding-bottom: 10px;
+}
+
+.left-part button {
+    background-color: transparent;
+    outline: none;
+    border: 1px solid #dfdfdf;
+    border-radius: 36px;
+    padding: 1rem 3rem;
+    font-size: 22px;
+    font-family: var(--montserrat);
+    font-weight: 600;
+    color: #dfdfdf;
+    cursor: pointer;
+}
+
+.left-part button:hover {
+    background-color: #ffffff25;
+}
+
+.left-part button:active {
+    background-color: #ffffff36;
+}
+
+/* ========== Right part ========== */
+.right-part {
+    width: 57%;
+    height: 100%;
+    background: var(--background-color-auth);
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    padding-top: 200px;
+}
+
+.right-part h2 {
+    font-family: var(--jetbrains);
+    font-size: 36px;
+    font-weight: 800;
+    background: var(--gradient-auth);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    padding-bottom: 70px;
+}
+
+.container-login-form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.form-auth {
+    width: 65%;
+    padding: 0 50px;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.div-button {
+    padding-top: 50px;
+}
+
+.div-button button {
+    border: none;
+    color: #fff;
+    background-image: radial-gradient(circle, rgb(145, 24, 139) 0%, rgba(132,17,156,1) 60%, rgba(132,17,171,1) 100%);
+    border-radius: 42px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 23px;
+    padding: 0.5em 3.8em;
+    cursor: pointer;
+    font-family: var(--jetbrains);
+    transition: all ease .3s;
+}
+
+.div-button button:hover {
+    background-position: right center;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+}
+
+.div-button button:active {
+    background-image: radial-gradient(circle, rgb(129, 21, 124) 8%, rgb(119, 15, 139) 57%, rgb(100, 10, 131) 100%);;
+}
+
+@keyframes pulse512 {
+    0% {
+        box-shadow: 0 0 0 0 #520d6366;
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+}
+
+/* ========== Inputs estilizations ==========*/
+.form-group {
+    position: relative;
+    padding: 20px 0 70px;
+    width: 100%;
+}
+
+.form-field {
+    font-family: var(--roboto);
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #c2c2c2;
+    outline: none;
+    font-size: 17px;
+    color: #525252;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color .2s;
+}
+
+.form-field::placeholder-shown~.form-label {
+    font-size: 15px;
+    cursor: text;
+    top: 20px;
+}
+
+.form-label {
     position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    display: block;
+    transition: .2s;
+    font-size: 15px;
+    color: #999999;
+    pointer-events: none;
+    font-family: var(--montserrat);
+    font-weight: 500;
+}
+
+.form-field:focus {
+    padding-bottom: 6px;
+    border-width: 3px;
+    border-image: linear-gradient(128deg, rgb(139, 21, 134) 0%, rgb(139, 16, 163) 49%, rgba(115, 11, 150, 1) 100%);
+    border-image-slice: 1;
+}
+
+.form-field:focus~.form-label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: .2s;
+    font-size: 15px;
+    background: linear-gradient(128deg, rgb(139, 21, 134) 0%, rgb(139, 16, 163) 49%, rgba(115, 11, 150, 1) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: 800px;
+}
+
+.form-field:required,
+.form-field:invalid {
+    box-shadow: none;
 }

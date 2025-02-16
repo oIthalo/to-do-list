@@ -1,21 +1,20 @@
-<h1>Todo List</h1>
-<form class="example-form" (ngSubmit)="onSubmit($event)">
-  <mat-form-field class="example-full-width" hideRequiredMarker="true">
-    <mat-label>Título</mat-label>
-    <input type="text" matInput [formControl]="titleFormControl" [errorStateMatcher]="matcher" placeholder="Digite o título"
-      #inputTitle (input)="getInputTitle(inputTitle.value)">
-    @if (titleFormControl.hasError('required')) { <mat-error>O título é <strong>obrigatório</strong></mat-error> }
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width" hideRequiredMarker="true">
-    <mat-label>Descrição</mat-label>
-    <input type="text" matInput [formControl]="descriptionFormControl" [errorStateMatcher]="matcher" placeholder="Digite a descrição"
-    #inputDescription (input)="getInputDescription(inputDescription.value)">
-    @if (descriptionFormControl.hasError('required')) { <mat-error>A descrição é
-      <strong>obrigatória</strong></mat-error> }
-  </mat-form-field>
-
-  <div class="btn">
-    <button>Adicionar</button>
-  </div>
-</form>
+<div class="container-create-todo">
+    <form class="form-create" (ngSubmit)="onAddTask()">
+        <h2>Adicionar tarefa</h2>
+        <div class="form-group field">
+            <input 
+                name="title" type="text" class="form-field" placeholder="Digite o titulo da sua tarefa" 
+                required [(ngModel)]="task.title">
+            <label for="title" class="form-label">Titulo</label>
+        </div>
+        <div class="form-group field">
+            <input 
+                name="description" type="text" class="form-field" placeholder="Digite a descrição da sua tarefa" 
+                required [(ngModel)]="task.description">
+            <label for="description" class="form-label">Descrição</label>
+        </div>
+        <div class="div-button">
+            <button>Adicionar</button>
+        </div>
+    </form>
+</div>

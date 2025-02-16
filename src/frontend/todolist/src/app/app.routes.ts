@@ -3,15 +3,15 @@ import { AuthGuard } from './auth/auth.guard';
 
 export const APP_ROUTES: Routes = [
     {
-        path: "", pathMatch: "full", redirectTo: "home"
+        path: "", pathMatch: "full", redirectTo: "todo"
     },
     {
         path: "",
-        loadChildren: () => import('./auth/auth.routes').then(x => x.AUTH_ROUTES) // rotas de autenticacao
-    },
+        loadChildren: () => import('./auth/auth.routes').then(x => x.AUTH_ROUTES)
+    }, 
     {
-        path: "home", 
-        loadChildren: () => import('./todo/todo.routes').then(x => x.TODO_ROUTES), // rotas do todo list
+        path: "todo",
+        loadChildren: () => import('./todo/todo.routes').then(x => x.TODO_ROUTES),
         canActivate: [AuthGuard]
     }
 ];

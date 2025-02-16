@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
+import { NavigationGuardService } from './nav-guard.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class TodoNavGuard implements CanActivate {
 
   constructor(
-    private _service: AuthService,
-    private _router: Router
-  ) { }
+    private _route: Router,
+    private _navService: NavigationGuardService) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-    if (this._service.isAuthUser()) {
+    if (this._navService.isAllowedNavigation()) {
+      this._navService.resetNavigation()
       return true
     }
 
-    this._router.navigate(['/login'])
+    this._route.navigate(['/todo'])
     return false
   }
 }

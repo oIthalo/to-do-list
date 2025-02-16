@@ -1,47 +1,52 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms'
+import { TodoService } from '../todo.service';
+import { Router } from '@angular/router';
 import { Task } from '../task';
 
-/** Classe para personalizar o estado de erro */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
-
-/** Componente do formulário */
 @Component({
   selector: 'app-todo-create',
-  standalone: true,
   imports: [
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule
+    FormsModule
   ],
   templateUrl: './todo-create.component.html',
   styleUrl: './todo-create.component.css'
 })
 export class TodoCreateComponent {
-  titleFormControl = new FormControl('', [Validators.required]);
-  descriptionFormControl = new FormControl('', [Validators.required]);
-
-  matcher = new MyErrorStateMatcher();
-
-  task: Task = { id: "", title: "", description: "", status: 0 }
-
-  @Output() todoEvent = new EventEmitter<Task>()
-
-  onSubmit(event: Event) {
-    event.preventDefault()
-
-    this.todoEvent.emit(this.task)
+  task: Task = {
+    id: `${this.gerarStringAleatoria()}`,
+    title: "",
+    description: "",
+    status: 0
   }
 
-  getInputTitle(title: string) { this.task.title = title }
-  getInputDescription(description: string) { this.task.description = description }
+  changeInput: boolean = false
+
+  constructor(
+    private _service: TodoService,
+    private _route: Router
+  ) { }
+
+  // gerar o id apenas em quanto nao esta conectado com a api
+  gerarStringAleatoria(tamanho = 3) {
+    const letras = "abcdefghijklmnopqrstuvwxyz";
+    let resultado = "";
+    for (let i = 0; i < tamanho; i++) {
+      resultado += letras.charAt(Math.floor(Math.random() * letras.length));
+    }
+    return resultado;
+  }
+
+  onAddTask() {
+    if (this.task.title.length == 0 || this.task.description.length == 0) {
+      return
+    }
+
+    this._service.addTask(this.task)
+    this._route.navigate(['/todo'])
+  }
+
+  onInput() {
+    this.changeInput = true
+  }
 }

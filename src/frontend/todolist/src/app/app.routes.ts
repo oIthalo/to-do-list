@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
+import { NotfoundComponent } from './notfound/notfound/notfound.component';
 
 export const APP_ROUTES: Routes = [
     {
@@ -13,5 +14,9 @@ export const APP_ROUTES: Routes = [
         path: "todo",
         loadChildren: () => import('./todo/todo.routes').then(x => x.TODO_ROUTES),
         canActivate: [AuthGuard]
+    },
+    {
+        path: "**",
+        component: NotfoundComponent
     }
 ];

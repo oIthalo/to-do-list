@@ -9,19 +9,19 @@
     <div class="right-part">
         <h2>Crie sua conta</h2>
         <div class="container-login-form">
-            <form class="form-auth">
+            <form class="form-auth" (ngSubmit)="onSubmit()">
                 <div class="form-group field">
-                    <input type="username" class="form-field" placeholder="Ex: Joao123" required>
+                    <input name="username" type="username" class="form-field" placeholder="Ex: Joao123" required [(ngModel)]="request.name">
                     <label for="username" class="form-label">Username</label>
                 </div>
 
                 <div class="form-group field">
-                    <input type="email" class="form-field" placeholder="Ex: mail@email.com" required>
+                    <input name="email" type="email" class="form-field" placeholder="Ex: mail@email.com" required [(ngModel)]="request.email">
                     <label for="email" class="form-label">Email</label>
                 </div>
 
                 <div class="form-group field">
-                    <input type="password" class="form-field" placeholder="Ex: Senha123!" required>
+                    <input name="password" type="password" class="form-field" placeholder="Ex: Senha123!" required [(ngModel)]="request.password">
                     <label for="password" class="form-label">Senha</label>
                 </div>
 

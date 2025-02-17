@@ -143,8 +143,17 @@
     width: 100%;
 }
 
-.form-fiel::placeholder {
-    color: transparent;
+.form-field {
+    font-family: var(--roboto);
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #c2c2c2;
+    outline: none;
+    font-size: 17px;
+    color: #525252;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color .2s;
 }
 
 .form-field::placeholder-shown~.form-label {

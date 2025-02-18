@@ -4,5 +4,5 @@ namespace ToDoList.Application.UseCases.TodoTask.ChangeStatus;
 
 public interface IChangeStatusUseCase
 {
-    Task Execute(long id, ChangeTaskStatusRequest request);
+    Task Execute(long id, ChangeStatusRequest request);
 }

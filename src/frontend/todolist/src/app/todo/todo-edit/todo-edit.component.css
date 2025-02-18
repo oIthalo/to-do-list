@@ -96,6 +96,7 @@
 .div-button {
     display: flex;
     justify-content: center;
+    gap: 25px;
 }
 
 .div-button button {
@@ -106,7 +107,7 @@
     background-size: 100% auto;
     font-family: inherit;
     font-size: 18px;
-    padding: 0.5em 3.8em;
+    padding: 0.5em 2.5em;
     cursor: pointer;
     font-family: var(--jetbrains);
     transition: all ease .3s;

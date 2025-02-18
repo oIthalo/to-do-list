@@ -1,23 +1,33 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms'
+import { Router, RouterLink } from '@angular/router';
+import { catchError, of } from 'rxjs';
+
 import { TodoService } from '../todo.service';
-import { Router } from '@angular/router';
-import { Task } from '../task';
+import { CreateTaskRequest } from '../models/request/create-task-request';
+import { TaskResponse } from '../models/response/task-response';
 
 @Component({
   selector: 'app-todo-create',
   imports: [
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './todo-create.component.html',
   styleUrl: './todo-create.component.css'
 })
 export class TodoCreateComponent {
-  task: Task = {
-    id: `${this.gerarStringAleatoria()}`,
+  request: CreateTaskRequest = {
+    title: "",
+    description: ""
+  }
+
+  taskResponse: TaskResponse = {
+    id: "",
     title: "",
     description: "",
-    status: 0
+    createdOn: new Date(),
+    done: false
   }
 
   changeInput: boolean = false
@@ -27,26 +37,17 @@ export class TodoCreateComponent {
     private _route: Router
   ) { }
 
-  // gerar o id apenas em quanto nao esta conectado com a api
-  gerarStringAleatoria(tamanho = 3) {
-    const letras = "abcdefghijklmnopqrstuvwxyz";
-    let resultado = "";
-    for (let i = 0; i < tamanho; i++) {
-      resultado += letras.charAt(Math.floor(Math.random() * letras.length));
-    }
-    return resultado;
-  }
-
-  onAddTask() {
-    if (this.task.title.length == 0 || this.task.description.length == 0) {
-      return
-    }
-
-    this._service.addTask(this.task)
-    this._route.navigate(['/todo'])
-  }
-
-  onInput() {
-    this.changeInput = true
+  createTask() {
+    this._service.createTask(this.request).pipe(
+      catchError(err => {
+        console.log(err);
+        return of({} as TaskResponse);
+      })
+    ).subscribe((response: TaskResponse) => {
+      this.taskResponse = response
+      this._route.navigate(['/todo']).then(() => {
+        window.location.reload()
+      })
+    })
   }
 }

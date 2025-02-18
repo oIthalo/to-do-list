@@ -1,36 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from '../todo.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Task } from '../task';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { TaskResponse } from '../models/response/task-response';
+import { UpdateTaskRequest } from '../models/request/edit-task-request';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-todo-edit',
-  imports: [FormsModule],
+  imports: [
+    FormsModule,
+    RouterLink
+  ],
   templateUrl: './todo-edit.component.html',
   styleUrl: './todo-edit.component.css'
 })
 export class TodoEditComponent implements OnInit {
-  task: Task = { id: "", title: "", description: "", status: 0 }
+  task: TaskResponse = { id: "", title: "", description: "", createdOn: new Date(), done: false }
+  request: UpdateTaskRequest = { title: "", description: "" }
 
   constructor(
     private _service: TodoService,
     private _route: Router,
     private _activatedRoute: ActivatedRoute
-  ) {
-    console.log(_activatedRoute)
-  }
+  ) { }
 
   ngOnInit(): void {
     this._activatedRoute.params.subscribe(
       (params: any) => { this.task.id = params['id'] }
     )
 
-    this.task = this._service.getTaskById(this.task.id) || { id: "", title: "", description: "", status: 0 }
+    this._service.getById(this.task.id).pipe().subscribe(
+      (response: TaskResponse) => { this.task = response }
+    );
   }
 
   onEditTask() {
-    this._service.editTask(this.task.id, this.task.title, this.task.description)
-    this._route.navigate(['/todo'])
+    this._service.editTask(this.task.id, this.request = { title: this.task.title, description: this.task.description }).pipe(
+      catchError((err) => {
+        console.log(err)
+        return of('')
+      })
+    ).subscribe()
+    this._route.navigate(['/todo']).then(() => {
+      window.location.reload()
+    })
   }
 }

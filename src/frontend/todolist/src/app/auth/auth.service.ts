@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { RegisterRequest } from './models/register/register-request';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { RegisterResponse } from './models/register/register-response';
 import { LoginRequest } from './models/login/login-request';
@@ -13,6 +13,7 @@ import { LoginResponse } from './models/login/login-response';
 export class AuthService {
   private readonly API_URL = "http://localhost:5143/user"
 
+  // crie um subject e inicia com true se existir o token e false se nao
   private tokenSubject = new BehaviorSubject<boolean>(!!localStorage.getItem('accessToken'));
 
   constructor(private _httpClient: HttpClient) { }
@@ -26,6 +27,7 @@ export class AuthService {
           }
         })
       );
+
   }
 
   login(request: LoginRequest): Observable<LoginResponse> {
@@ -39,7 +41,7 @@ export class AuthService {
       );
   }
 
-  storeToken(token: string){
+  storeToken(token: string) {
     const tokenOnBrowser = localStorage.getItem('accessToken')
     if (tokenOnBrowser) {
       localStorage.removeItem('accessToken')
@@ -47,6 +49,10 @@ export class AuthService {
       localStorage.setItem('accessToken', token)
       this.tokenSubject.next(true);
     }
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('accessToken')
   }
 
   isAuth(): Observable<boolean> {

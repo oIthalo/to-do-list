@@ -9,7 +9,6 @@ using ToDoList.Application.UseCases.TodoTask.GetById;
 using ToDoList.Application.UseCases.TodoTask.Update;
 using ToDoList.Communication.Requests;
 using ToDoList.Communication.Responses;
-using ToDoList.Domain.Enums;
 
 namespace ToDoList.API.Controllers;
 
@@ -98,7 +97,7 @@ public class TaskController : ToDoListControllerBase
     public async Task<IActionResult> ChangeStatus(
         [FromServices] IChangeStatusUseCase useCase,
         [FromRoute][ModelBinder(typeof(ToDoListIdBinder))] long id,
-        [FromBody] ChangeTaskStatusRequest request)
+        [FromBody] ChangeStatusRequest request)
     {
         await useCase.Execute(id, request);
         return NoContent();

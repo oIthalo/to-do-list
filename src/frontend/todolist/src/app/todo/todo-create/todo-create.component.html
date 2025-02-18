@@ -1,20 +1,21 @@
 <div class="container-create-todo">
-    <form class="form-create" (ngSubmit)="onAddTask()">
+    <form class="form-create" (ngSubmit)="createTask()">
         <h2>Adicionar tarefa</h2>
         <div class="form-group field">
             <input 
                 name="title" type="text" class="form-field" placeholder="Digite o titulo da sua tarefa" 
-                required [(ngModel)]="task.title">
+                required [(ngModel)]="request.title">
             <label for="title" class="form-label">Titulo</label>
         </div>
         <div class="form-group field">
             <input 
                 name="description" type="text" class="form-field" placeholder="Digite a descrição da sua tarefa" 
-                required [(ngModel)]="task.description">
+                required [(ngModel)]="request.description">
             <label for="description" class="form-label">Descrição</label>
         </div>
         <div class="div-button">
             <button>Adicionar</button>
+            <button [routerLink]="(['/todo'])">Cancelar</button>
         </div>
     </form>
 </div>

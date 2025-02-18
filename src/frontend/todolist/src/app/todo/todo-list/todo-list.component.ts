@@ -1,11 +1,13 @@
+import { TaskResponse } from './../models/response/task-response';
+import { TasksResponse } from './../models/response/tasks-response';
 import { Component, OnInit } from '@angular/core';
-
-import { Task } from '../task';
-import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 import { TodoService } from '../todo.service';
 import { NavigationGuardService } from '../nav-guard.service';
-import { FormsModule } from '@angular/forms';
+import { catchError, filter, of } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
@@ -18,52 +20,86 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './todo-list.component.css'
 })
 export class TodoListComponent implements OnInit {
-  tasks: Task[] = []
-  title: string = ""
-  description: string = ""
-  query: string = ""
+  tasks: TasksResponse = { tasks: [] }
+  originalTasks: TaskResponse[] = []
+  filteredTasks: TaskResponse[] = []
+
   select: string = ""
 
   constructor(
     private _service: TodoService,
     private _route: Router,
-    private _navService: NavigationGuardService) { }
+    private _navService: NavigationGuardService
+  ) { }
 
   ngOnInit(): void {
-    this.tasks = this._service.getTasks()
+    this.loadTasks();
   }
 
-  editOnClick(id: string){
-    this._navService.allowNavigation()
-    this._route.navigate([`/todo/edit/${id}`])
+  loadTasks() {
+    this._service.getTasks().pipe(
+      catchError(err => {
+        console.log(err);
+        return of({ tasks: [] });
+      })
+    ).subscribe((response: TasksResponse) => {
+      this.tasks.tasks = response.tasks;
+      this.originalTasks = [...response.tasks]
+    });
   }
 
-  addOnClick(){
+  onDelete(id: string) {
+    this._service.deleteTask(id).pipe().subscribe(
+      () => {
+        this.tasks.tasks = this.tasks.tasks.filter(task => task.id !== id);
+      }
+    );
+  }
+
+  filter(query: string) {
+    if (query.trim() !== "") {
+      this.tasks.tasks = this.tasks.tasks.filter(x =>
+        x.title.toLowerCase().includes(query.toLowerCase()) ||
+        x.description.toLowerCase().includes(query.toLowerCase())
+      );
+    } else {
+      this.tasks.tasks = [...this.originalTasks]
+    }
+  }
+
+  onChangeSelect(event: Event) {
+    this.select = (event.target as HTMLSelectElement).value
+
+    if (this.select === "all") {
+      this.tasks.tasks = [...this.originalTasks];
+    } else if (this.select === "todo") {
+      this.tasks.tasks = [...this.originalTasks].filter(x => x.done === false)
+    } else if (this.select === "done") {
+      this.tasks.tasks = [...this.originalTasks].filter(x => x.done === true)
+    }
+  }
+
+  onChangeStatus(id: string, task: TaskResponse) {
+    task.done = !task.done; // Alterna o status
+    console.log(`Alterando status da task ${id} para ${task.done}`);
+
+    this._service.changeStatus(id, task.done).subscribe();
+  }
+
+  toggleChecked(task: TaskResponse) {
+    if (task.done === true) {
+      return true
+    }
+    return false
+  }
+
+  navToTodoAdd() {
     this._navService.allowNavigation()
     this._route.navigate(['/todo/add'])
   }
 
-  filterByQuery(){
-    this.tasks = this._service.filterByQuery(this.query)
-  }
-
-  toggleStatusOnClick(task: Task){
-    task.status = task.status === 1 ? 0 : 1
-  }
-
-  toggleChecked(task: Task){
-    if (task.status === 1){
-      return true
-    } 
-    return false
-  }
-
-  onChangeSelect(event: Event){
-    this.select = (event.target as HTMLSelectElement).value
-    this.tasks = this._service.filterBySelect(this.select)
-  }
-
-  onDeleteTask(id: string){
-    this.tasks = this._service.deleteTask(id)
+  navToTodoEdit(id: string) {
+    this._navService.allowNavigation()
+    this._route.navigate([`/todo/edit/${id}`])
   }
 }

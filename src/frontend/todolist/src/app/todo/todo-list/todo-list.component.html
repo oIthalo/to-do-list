@@ -5,7 +5,7 @@
     <div class="container-content">
         <div class="container-filters">
             <div class="form-group field">
-                <input type="text" class="form-field" placeholder="Pesquise a sua tarefa" required [(ngModel)]="query" (input)="filterByQuery()">
+                <input type="text" class="form-field" placeholder="Pesquise a sua tarefa" required #query (input)="filter(query.value)">
                 <label for="search-task" class="form-label">Pesquisar tarefa</label>
                 <div class="select-wrapper">
                     <select class="filter-select" (change)="onChangeSelect($event)">
@@ -17,9 +17,9 @@
                 </div>
             </div>
         </div>
-        <ul class="todo-list" *ngFor="let task of tasks">
-            <li class="todo-item" [class.done]="task.status === 1">
-                <input class="input-checkbox" type="checkbox" (click)="toggleStatusOnClick(task)" [checked]="toggleChecked(task)">
+        <ul class="todo-list" *ngFor="let task of tasks.tasks">
+            <li class="todo-item" [class.done]="task.done === true">
+                <input class="input-checkbox" type="checkbox" (change)="onChangeStatus(task.id, task)" [checked]="toggleChecked(task)">
 
                 <div class="content">
                     <div class="content-writed">
@@ -28,15 +28,15 @@
                     </div>
 
                     <div class="buttons">
-                        <button (click)="editOnClick(task.id)"><i class="bi bi-pencil-square"></i></button>
-                        <button (click)="onDeleteTask(task.id)"><i class="bi bi-trash3"></i></button>
+                        <button (click)="navToTodoEdit(task.id)"><i class="bi bi-pencil-square"></i></button>
+                        <button (click)="onDelete(task.id)" ><i class="bi bi-trash3"></i></button>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
     <div class="container-add">
-        <button (click)="addOnClick()" class="btn-add">+</button>
+        <button (click)="navToTodoAdd()" class="btn-add">+</button>
         <label for="add-button">Adicionar</label>
     </div>
 </section>

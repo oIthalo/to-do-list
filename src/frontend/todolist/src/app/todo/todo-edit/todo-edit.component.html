@@ -5,18 +5,19 @@
             <input 
                 name="title" type="text" class="form-field" 
                 placeholder="Digite o titulo da sua tarefa" required 
-                [(ngModel)]="task.title" [value]="task.title">
+                [(ngModel)]="task.title">
             <label for="title" class="form-label">Titulo</label>
         </div>
         <div class="form-group field">
             <input 
                 name="task" type="text" class="form-field" 
                 placeholder="Digite a descrição da sua tarefa" required 
-                [(ngModel)]="task.description" [value]="task.description">
+                [(ngModel)]="task.description">
             <label for="description" class="form-label">Descrição</label>
         </div>
         <div class="div-button">
             <button>Confirmar</button>
+            <button [routerLink]="(['/todo'])">Cancelar</button>
         </div>
     </form>
 </div>

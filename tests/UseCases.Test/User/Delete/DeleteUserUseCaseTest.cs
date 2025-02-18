@@ -1,11 +1,8 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositories;
-using CommonTestUtilities.Requests;
 using FluentAssertions;
 using ToDoList.Application.UseCases.User.Delete;
-using ToDoList.Exception;
-using ToDoList.Exception.ExceptionsBase;
 
 namespace UseCases.Test.User.Delete;
 
@@ -14,7 +11,6 @@ public class DeleteUserUseCaseTest
     [Fact]
     public async Task Success()
     {
-        var request = ChangeTaskStatusRequestBuilder.Build();
         (var user, _) = UserBuilder.Build();
 
         var useCase = CreateUseCase(user);

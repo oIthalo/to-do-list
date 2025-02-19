@@ -1,0 +1,44 @@
+<header class="header">
+    <h1>Todo List</h1>
+</header>
+<section class="container-todo-list">
+    <div class="container-content">
+        <div class="container-filters">
+            <div class="form-group field">
+                <input type="text" class="form-field" placeholder="Pesquise a sua tarefa" required #query (input)="filter(query.value)">
+                <label for="search-task" class="form-label">Pesquisar tarefa</label>
+                <div class="select-wrapper">
+                    <select class="filter-select" (change)="onChangeSelect($event)">
+                        <option value="all">Todas</option>
+                        <option value="todo">A fazer</option>
+                        <option value="done">Feitas</option>
+                    </select>
+                    <i class="bi bi-caret-down-fill"></i>
+                </div>
+            </div>
+        </div>
+        <ul class="todo-list" *ngFor="let task of tasks.tasks">
+            <li class="todo-item" [class.done]="task.done === true">
+                <input class="input-checkbox" type="checkbox" (change)="onChangeStatus(task.id, task)" [checked]="toggleChecked(task)">
+
+                <div class="content">
+                    <div class="content-writed">
+                        <h2>{{ task.title }}</h2>
+                        <p>{{ task.description }}</p>
+                    </div>
+
+                    <div class="buttons">
+                        <button (click)="navToTodoEdit(task.id)"><i class="bi bi-pencil-square"></i></button>
+                        <button (click)="onDelete(task.id)" ><i class="bi bi-trash3"></i></button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="container-add">
+        <button (click)="navToTodoAdd()" class="btn-add">+</button>
+        <label for="add-button">Adicionar</label>
+    </div>
+</section>
+
+<router-outlet></router-outlet>

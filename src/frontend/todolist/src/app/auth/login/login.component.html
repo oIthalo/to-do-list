@@ -1,0 +1,29 @@
+<section class="container-login">
+    <div class="left-part">
+        <h2>Bem vindo(a) de volta!</h2>
+        <div class="sign-up-button">
+            <p>AINDA NÃO TEM UMA CONTA?</p>
+            <button [routerLink]="(['/register'])">Cadastrar-se</button>
+        </div>
+    </div>
+    <div class="right-part">
+        <h2>Acesse sua conta</h2>
+        <div class="container-login-form">
+            <form class="form-auth" (ngSubmit)="onSubmit()">
+                <div class="form-group field">
+                    <input name="email" type="email" class="form-field" placeholder="Ex: mail@email.com" required [(ngModel)]="request.email">
+                    <label for="email" class="form-label">Email</label>
+                </div>
+
+                <div class="form-group field">
+                    <input name="password" type="password" class="form-field" placeholder="Ex: Senha123!" required [(ngModel)]="request.password">
+                    <label for="password" class="form-label">Senha</label>
+                </div>
+
+                <div class="div-button">
+                    <button>Logar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

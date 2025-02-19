@@ -22,11 +22,9 @@ public class ChangeTaskStatusInvalidTokenTest : ToDoListClassFixture
     [Fact]
     public async Task Error_No_Token()
     {
-        var request = ChangeTaskStatusRequestBuilder.Build();
-
         var id = IdEncripterBuilder.Build().Encode(_taskId);
 
-        var response = await DoPut(METHOD, request, id: id);
+        var response = await DoPut(METHOD, false, id: id);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
 
@@ -39,12 +37,11 @@ public class ChangeTaskStatusInvalidTokenTest : ToDoListClassFixture
     [Fact]
     public async Task Error_Invalid_User()
     {
-        var request = ChangeTaskStatusRequestBuilder.Build();
         var token = AccessTokenGeneratorBuilder.Build().Generate(Guid.NewGuid());
 
         var id = IdEncripterBuilder.Build().Encode(_taskId);
 
-        var response = await DoPut(METHOD, request, token: token, id: id);
+        var response = await DoPut(METHOD, false, token: token, id: id);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
 

@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --montserrat: "Montserrat", serif;
+    --jetbrains: "JetBrains Mono", serif;
+    --roboto: "Roboto", serif;
+
+    --background-auth: #a71ba0;
+    --gradient-auth: linear-gradient(50deg, rgb(173, 30, 166) 0%, rgba(132,17,156,1) 50%, rgb(102, 11, 133) 100%);
+    --background-color-auth: #fdfdfd;
+    --main-white-color-font: #f3f3f3;
+    --gradient-radial-main: radial-gradient(circle, rgb(117, 20, 112) 0%, rgba(132,17,156,1) 60%, rgba(132,17,171,1) 100%);
+}

@@ -22,12 +22,11 @@ public class ChangeTaskStatusTest : ToDoListClassFixture
     [Fact]
     public async Task Success()
     {
-        var request = ChangeTaskStatusRequestBuilder.Build();
         var token = AccessTokenGeneratorBuilder.Build().Generate(_userIdentifier);
         
         var id = IdEncripterBuilder.Build().Encode(_taskId);
 
-        var response = await DoPut(METHOD, request, token:token, id:id);
+        var response = await DoPut(METHOD, false, token:token, id:id);
 
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }

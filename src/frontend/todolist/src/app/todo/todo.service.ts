@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { interval, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { TasksResponse } from './models/response/tasks-response';
@@ -13,7 +13,8 @@ import { UpdateTaskRequest } from './models/request/edit-task-request';
 export class TodoService {
   private readonly API_URL = "http://localhost:5143/task"
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient) {
+  }
 
   getTasks(): Observable<TasksResponse> {
     return this._httpClient.get<TasksResponse>(`${this.API_URL}/get-all`)
@@ -27,7 +28,7 @@ export class TodoService {
     return this._httpClient.post<TaskResponse>(`${this.API_URL}/create`, request)
   }
 
-  editTask(id: string, request: UpdateTaskRequest): Observable<void>{
+  editTask(id: string, request: UpdateTaskRequest): Observable<void> {
     return this._httpClient.put<void>(`${this.API_URL}/update/${id}`, request)
   }
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-
 import { RegisterRequest } from './models/register/register-request';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, interval, Observable, tap } from 'rxjs';
+
 import { RegisterResponse } from './models/register/register-response';
 import { LoginRequest } from './models/login/login-request';
 import { LoginResponse } from './models/login/login-response';
@@ -13,10 +13,10 @@ import { LoginResponse } from './models/login/login-response';
 export class AuthService {
   private readonly API_URL = "http://localhost:5143/user"
 
-  // crie um subject e inicia com true se existir o token e false se nao
   private tokenSubject = new BehaviorSubject<boolean>(!!localStorage.getItem('accessToken'));
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient) {
+  }
 
   register(request: RegisterRequest): Observable<RegisterResponse> {
     return this._httpClient.post<RegisterResponse>(`${this.API_URL}/register`, request)
@@ -24,6 +24,7 @@ export class AuthService {
         tap((response: RegisterResponse) => {
           if (response.tokens.accessToken) {
             this.storeToken(response.tokens.accessToken);
+            this.logout()
           }
         })
       );
@@ -36,12 +37,26 @@ export class AuthService {
         tap((response: LoginResponse) => {
           if (response.tokens.accessToken) {
             this.storeToken(response.tokens.accessToken);
+            this.logout()
           }
         })
       );
   }
 
-  storeToken(token: string) {
+  private logout() {
+    // 2 horas pra invalidar o token
+    const timeToInvalidateToken: number = 2 * 60 * 60 * 1000
+
+    // fazer logout faltando 10s para expiração do token
+    interval(timeToInvalidateToken - 1000).subscribe(
+      () => {
+        localStorage.removeItem('accessToken')
+        window.location.reload()
+      }
+    )
+  }
+
+  private storeToken(token: string) {
     const tokenOnBrowser = localStorage.getItem('accessToken')
     if (tokenOnBrowser) {
       localStorage.removeItem('accessToken')

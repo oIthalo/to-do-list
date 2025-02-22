@@ -4,7 +4,6 @@ import { TodoService } from '../todo.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TaskResponse } from '../models/response/task-response';
 import { UpdateTaskRequest } from '../models/request/edit-task-request';
-import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-todo-edit',
@@ -36,12 +35,7 @@ export class TodoEditComponent implements OnInit {
   }
 
   onEditTask() {
-    this._service.editTask(this.task.id, this.request = { title: this.task.title, description: this.task.description }).pipe(
-      catchError((err) => {
-        console.log(err)
-        return of('')
-      })
-    ).subscribe()
+    this._service.editTask(this.task.id, this.request = { title: this.task.title, description: this.task.description }).subscribe()
     this._route.navigate(['/todo']).then(() => {
       window.location.reload()
     })

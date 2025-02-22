@@ -38,16 +38,12 @@ export class TodoCreateComponent {
   ) { }
 
   createTask() {
-    this._service.createTask(this.request).pipe(
-      catchError(err => {
-        console.log(err);
-        return of({} as TaskResponse);
+    this._service.createTask(this.request).subscribe(
+      (response: TaskResponse) => {
+        this.taskResponse = response
+        this._route.navigate(['/todo']).then(() => {
+          window.location.reload()
+        })
       })
-    ).subscribe((response: TaskResponse) => {
-      this.taskResponse = response
-      this._route.navigate(['/todo']).then(() => {
-        window.location.reload()
-      })
-    })
   }
 }

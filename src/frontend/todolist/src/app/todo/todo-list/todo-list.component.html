@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <ul class="todo-list" *ngFor="let task of tasks.tasks">
+        <ul class="todo-list" *ngFor="let task of tasksResponse.tasks">
             <li class="todo-item" [class.done]="task.done === true">
                 <input class="input-checkbox" type="checkbox" (change)="onChangeStatus(task.id, task)" [checked]="toggleChecked(task)">
 

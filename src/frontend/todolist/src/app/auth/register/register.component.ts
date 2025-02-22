@@ -37,10 +37,6 @@ export class RegisterComponent {
       (response: RegisterResponse) => {
         this.responseData = response
         this._route.navigate(['/todo'])
-
-      },
-      (error) => {
-        console.error('Erro ao enviar os dados:', error);
       }
     )
   }

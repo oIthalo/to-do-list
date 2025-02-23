@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RegisterRequest } from './models/register/register-request';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, interval, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
 
 import { RegisterResponse } from './models/register/register-response';
 import { LoginRequest } from './models/login/login-request';
@@ -13,10 +13,13 @@ import { LoginResponse } from './models/login/login-response';
 export class AuthService {
   private readonly API_URL = "http://localhost:5143/user"
 
-  private tokenSubject = new BehaviorSubject<boolean>(!!localStorage.getItem('accessToken'));
+  private tokenSubject = new BehaviorSubject<boolean>(!!this.getToken());
+  private tokenCheckSubscription!: Subscription;
 
-  constructor(private _httpClient: HttpClient) {
-  }
+  constructor(
+    private _httpClient: HttpClient) {
+      this.checkTokenExpiration()
+    }
 
   register(request: RegisterRequest): Observable<RegisterResponse> {
     return this._httpClient.post<RegisterResponse>(`${this.API_URL}/register`, request)
@@ -24,7 +27,6 @@ export class AuthService {
         tap((response: RegisterResponse) => {
           if (response.tokens.accessToken) {
             this.storeToken(response.tokens.accessToken);
-            this.logout()
           }
         })
       );
@@ -37,27 +39,34 @@ export class AuthService {
         tap((response: LoginResponse) => {
           if (response.tokens.accessToken) {
             this.storeToken(response.tokens.accessToken);
-            this.logout()
           }
         })
       );
   }
 
-  private logout() {
-    // 2 horas pra invalidar o token
-    const timeToInvalidateToken: number = 2 * 60 * 60 * 1000
+  private isExpiredToken(token: string): boolean {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const exp = payload.exp * 1000;
 
-    // fazer logout faltando 10s para expiração do token
-    interval(timeToInvalidateToken - 1000).subscribe(
-      () => {
-        localStorage.removeItem('accessToken')
-        window.location.reload()
-      }
-    )
+    return Date.now() >= exp
+  }
+
+  private checkTokenExpiration() {
+    const token = this.getToken();
+    if (token && this.isExpiredToken(token)) {
+      this.logout();
+    }
+  }
+
+  private logout() {
+    localStorage.removeItem('accessToken');
+    this.tokenSubject.next(false);
+    this.tokenCheckSubscription.unsubscribe()
+    window.location.reload()
   }
 
   private storeToken(token: string) {
-    const tokenOnBrowser = localStorage.getItem('accessToken')
+    const tokenOnBrowser = this.getToken()
     if (tokenOnBrowser) {
       localStorage.removeItem('accessToken')
     } else {

@@ -11,7 +11,7 @@ export const APP_ROUTES: Routes = [
     {
         path: "",
         loadChildren: () => import('./auth/auth.routes').then(x => x.AUTH_ROUTES),
-        canActivate: [LoginGuard]
+        canActivate: [LoginGuard] 
     }, 
     {
         path: "todo",

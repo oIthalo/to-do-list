@@ -159,7 +159,7 @@ li.todo-item {
 
 .form-field {
     font-family: var(--roboto);
-    width: 85%;
+    width: 55%;
     border: none;
     border-bottom: 3px solid #c2c2c2;
     outline: none;
@@ -243,6 +243,10 @@ li.todo-item {
     position: relative;
     display: inline-block;
     width: 15%;
+}
+
+.select-wrapper2 {
+    width: 22%;
 }
 
 .select-wrapper .bi-caret-down-fill {

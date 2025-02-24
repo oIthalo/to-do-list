@@ -33,17 +33,14 @@ export class TodoCreateComponent {
   changeInput: boolean = false
 
   constructor(
-    private _service: TodoService,
-    private _route: Router
+    private _service: TodoService
   ) { }
 
   createTask() {
     this._service.createTask(this.request).subscribe(
       (response: TaskResponse) => {
         this.taskResponse = response
-        this._route.navigate(['/todo']).then(() => {
-          window.location.reload()
-        })
+        window.location.reload()
       })
   }
 }

@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 
 import { TodoService } from '../todo.service';
 import { NavigationGuardService } from '../nav-guard.service';
-import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
@@ -24,7 +23,8 @@ export class TodoListComponent implements OnInit {
   originalTasks: TaskResponse[] = []
   filteredTasks: TaskResponse[] = []
 
-  select: string = ""
+  selectFilter: string = ""
+  selectOrder: string = ""
 
   constructor(
     private _service: TodoService,
@@ -63,15 +63,31 @@ export class TodoListComponent implements OnInit {
     }
   }
 
-  onChangeSelect(event: Event) {
-    this.select = (event.target as HTMLSelectElement).value
+  onChangeSelectFilter(event: Event) {
+    this.selectFilter = (event.target as HTMLSelectElement).value
 
-    if (this.select === "all") {
+    if (this.selectFilter === "all") {
       this.tasksResponse.tasks = [...this.originalTasks];
-    } else if (this.select === "todo") {
+    } else if (this.selectFilter === "todo") {
       this.tasksResponse.tasks = [...this.originalTasks].filter(x => x.done === false)
-    } else if (this.select === "done") {
+    } else if (this.selectFilter === "done") {
       this.tasksResponse.tasks = [...this.originalTasks].filter(x => x.done === true)
+    }
+  }
+
+  onChangeSelectOrder(event: Event) {
+    this.selectOrder = (event.target as HTMLSelectElement).value;
+
+    switch (this.selectOrder) {
+      case "anywhere":
+        return
+        break;
+      case "currents":
+        this.tasksResponse.tasks = [...this.originalTasks].sort((a, b) => new Date(a.createdOn).getTime() - new Date(b.createdOn).getTime());
+        break;
+      case "old":
+        this.tasksResponse.tasks = [...this.originalTasks].sort((a, b) => new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime());
+        break;
     }
   }
 

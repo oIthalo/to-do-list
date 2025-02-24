@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { AuthGuard } from './auth/auth.guard';
 import { NotfoundComponent } from './notfound/notfound/notfound.component';
+import { LoginGuard } from './login-guard';
 
 export const APP_ROUTES: Routes = [
     {
@@ -9,7 +10,8 @@ export const APP_ROUTES: Routes = [
     },
     {
         path: "",
-        loadChildren: () => import('./auth/auth.routes').then(x => x.AUTH_ROUTES)
+        loadChildren: () => import('./auth/auth.routes').then(x => x.AUTH_ROUTES),
+        canActivate: [LoginGuard]
     }, 
     {
         path: "todo",
